@@ -2,63 +2,33 @@
 <BuildLog xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ProjectInfo>
     <Name>ETL_Job</Name>
-    <LastWriteTime>2024-10-15T14:16:57.1979958Z</LastWriteTime>
+    <LastWriteTime>2024-10-16T19:40:20.5550697Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
   </ProjectInfo>
   <LastBuildInfos>
     <ProjectBuildItemInfo>
       <Name>En1Clubs_2010_11.dtsx</Name>
-      <LastWriteTime>2024-10-15T09:28:30.2214571Z</LastWriteTime>
-      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
-    </ProjectBuildItemInfo>
-    <ProjectBuildItemInfo>
-      <Name>En2Clubs_2010_11.dtsx</Name>
-      <LastWriteTime>2024-10-15T09:28:55.4173426Z</LastWriteTime>
-      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
-    </ProjectBuildItemInfo>
-    <ProjectBuildItemInfo>
-      <Name>En3Clubs_2010_11.dtsx</Name>
-      <LastWriteTime>2024-10-15T09:29:39.1641728Z</LastWriteTime>
-      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
-    </ProjectBuildItemInfo>
-    <ProjectBuildItemInfo>
-      <Name>En4Clubs_2010_11.dtsx</Name>
-      <LastWriteTime>2024-10-15T09:29:38.2975345Z</LastWriteTime>
+      <LastWriteTime>2024-10-16T19:43:03.6627479Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>En1_2010-11.dtsx</Name>
-      <LastWriteTime>2024-10-15T10:06:13.3861881Z</LastWriteTime>
-      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
-    </ProjectBuildItemInfo>
-    <ProjectBuildItemInfo>
-      <Name>En2_2010-11.dtsx</Name>
-      <LastWriteTime>2024-10-15T10:07:24.8434655Z</LastWriteTime>
-      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
-    </ProjectBuildItemInfo>
-    <ProjectBuildItemInfo>
-      <Name>En3_2010-11.dtsx</Name>
-      <LastWriteTime>2024-10-15T10:08:29.3681601Z</LastWriteTime>
-      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
-    </ProjectBuildItemInfo>
-    <ProjectBuildItemInfo>
-      <Name>En4_2010-11.dtsx</Name>
-      <LastWriteTime>2024-10-15T10:08:10.2205625Z</LastWriteTime>
+      <LastWriteTime>2024-10-16T19:40:08.4582533Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>DimClubs.dtsx</Name>
-      <LastWriteTime>2024-10-15T14:11:05.4582411Z</LastWriteTime>
+      <LastWriteTime>2024-10-16T17:42:24.5514894Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>DimCompeticoes.dtsx</Name>
-      <LastWriteTime>2024-10-15T14:16:52.6871926Z</LastWriteTime>
+      <LastWriteTime>2024-10-16T17:42:24.5534899Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>DimPais.dtsx</Name>
-      <LastWriteTime>2024-10-15T14:07:13.2622266Z</LastWriteTime>
+      <LastWriteTime>2024-10-16T17:42:24.5654926Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>
