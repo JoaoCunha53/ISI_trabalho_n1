@@ -1,0 +1,1985 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/15/2024 11:20:38 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-5G0AINV"
+  DTS:CreatorName="DESKTOP-5G0AINV\João Cunha"
+  DTS:DTSID="{3C12FDDF-0A5B-4DCB-BE2C-DC9EA0206366}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5556.0"
+  DTS:LocaleID="2070"
+  DTS:ObjectName="DimClubs"
+  DTS:PackageType="5"
+  DTS:VersionBuild="52"
+  DTS:VersionGUID="{5F1374B3-4519-4FD9-BCBD-8A393A247E1C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Insert_DimClubes"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{6AE81B3E-2F70-43E0-82CA-D88086318962}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Insert_DimClubes">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Insert_DimClubes\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Insert_DimClubes\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Conditional Split.Inputs[Conditional Split Input].Columns[Clube_Nome]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Clube_Nome"
+                      lineageId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Clube_Nome]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insert_DimClubes\Conditional Split.Outputs[Case 1]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Case 1"
+                  synchronousInputId="Package\Insert_DimClubes\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[ISNULL](#{Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Clube_Nome]}) ==  FALSE </property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">ISNULL(Clube_Nome) ==  FALSE </property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Insert_DimClubes\Conditional Split.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\Insert_DimClubes\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Insert_DimClubes\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Insert_DimClubes\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Insert_DimClubes\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Insert_DimClubes\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insert_DimClubes\Converter 1"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Converter 1"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Insert_DimClubes\Converter 1.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Converter 1.Inputs[Derived Column Input].Columns[ClubeCode]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ClubeCode"
+                      lineageId="Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Output].Columns[ClubeCode]" />
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Converter 1.Inputs[Derived Column Input].Columns[ClubePais]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ClubePais"
+                      lineageId="Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Output].Columns[ClubePais]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insert_DimClubes\Converter 1.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Insert_DimClubes\Converter 1.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Converter 1.Outputs[Derived Column Output].Columns[ClubeCode_STR]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Converter 1.Outputs[Derived Column Output].Columns[ClubeCode_STR]"
+                      name="ClubeCode_STR"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,255,1252)#{Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Output].Columns[ClubeCode]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,255,1252)ClubeCode</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Converter 1.Outputs[Derived Column Output].Columns[ClubePais_STR]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Converter 1.Outputs[Derived Column Output].Columns[ClubePais_STR]"
+                      name="ClubePais_STR"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,255,1252)#{Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Output].Columns[ClubePais]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,255,1252)ClubePais</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Insert_DimClubes\Converter 1.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Insert_DimClubes\Converter 1.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Converter 1.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Insert_DimClubes\Converter 1.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Converter 1.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Insert_DimClubes\Converter 1.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insert_DimClubes\Converter 2"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Converter 2"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Insert_DimClubes\Converter 2.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Converter 2.Inputs[Derived Column Input].Columns[Nome]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Nome"
+                      lineageId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insert_DimClubes\Converter 2.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Insert_DimClubes\Converter 2.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Converter 2.Outputs[Derived Column Output].Columns[Nome_STR]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Converter 2.Outputs[Derived Column Output].Columns[Nome_STR]"
+                      name="Nome_STR"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,255,1252)#{Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,255,1252)Nome</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Insert_DimClubes\Converter 2.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Insert_DimClubes\Converter 2.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Converter 2.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Insert_DimClubes\Converter 2.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Converter 2.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Insert_DimClubes\Converter 2.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insert_DimClubes\Dim_Clubes"
+              componentClassID="Microsoft.SSISODBCDst"
+              contactInfo="ODBC Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="ODBC Destination"
+              name="Dim_Clubes"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The name of the table to be fetched."
+                  expressionType="Notify"
+                  name="TableName">DimClubes</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows fetched per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows inserted under the same transaction."
+                  expressionType="Notify"
+                  name="TransactionSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for inserting data. Possible values are 'Batch' or 'Row by row'."
+                  expressionType="Notify"
+                  name="InsertMethod">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Insert_DimClubes\Dim_Clubes.Connections[ODBCConnection]"
+                  connectionManagerID="{55184156-CD34-4453-9463-7F5EED9E93B8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[freesqldatabase.sql7738411]"
+                  description="The ODBC runtime connection used to access the database."
+                  name="ODBCConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Insert_DimClubes\Dim_Clubes.Inputs[ODBC Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ODBC Destination Input"
+                  truncationRowDisposition="FailComponent">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Dim_Clubes.Inputs[ODBC Destination Input].Columns[ID]"
+                      cachedDataType="i4"
+                      cachedName="ID"
+                      externalMetadataColumnId="Package\Insert_DimClubes\Dim_Clubes.Inputs[ODBC Destination Input].ExternalColumns[ID_Pais]"
+                      lineageId="Package\Insert_DimClubes\Juntar.Outputs[Merge Join Output].Columns[ID]" />
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Dim_Clubes.Inputs[ODBC Destination Input].Columns[ClubeNome]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="ClubeNome"
+                      externalMetadataColumnId="Package\Insert_DimClubes\Dim_Clubes.Inputs[ODBC Destination Input].ExternalColumns[Nome]"
+                      lineageId="Package\Insert_DimClubes\Juntar.Outputs[Merge Join Output].Columns[ClubeNome]" />
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Dim_Clubes.Inputs[ODBC Destination Input].Columns[ClubeCode_STR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="ClubeCode_STR"
+                      externalMetadataColumnId="Package\Insert_DimClubes\Dim_Clubes.Inputs[ODBC Destination Input].ExternalColumns[Nome_Codigo]"
+                      lineageId="Package\Insert_DimClubes\Juntar.Outputs[Merge Join Output].Columns[ClubeCode_STR]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Insert_DimClubes\Dim_Clubes.Inputs[ODBC Destination Input].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Insert_DimClubes\Dim_Clubes.Inputs[ODBC Destination Input].ExternalColumns[Nome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Nome" />
+                    <externalMetadataColumn
+                      refId="Package\Insert_DimClubes\Dim_Clubes.Inputs[ODBC Destination Input].ExternalColumns[ID_Pais]"
+                      dataType="i4"
+                      name="ID_Pais" />
+                    <externalMetadataColumn
+                      refId="Package\Insert_DimClubes\Dim_Clubes.Inputs[ODBC Destination Input].ExternalColumns[Nome_Codigo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Nome_Codigo" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insert_DimClubes\Dim_Clubes.Outputs[ODBC Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ODBC Destination Error Output"
+                  synchronousInputId="Package\Insert_DimClubes\Dim_Clubes.Inputs[ODBC Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Dim_Clubes.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Insert_DimClubes\Dim_Clubes.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Dim_Clubes.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Insert_DimClubes\Dim_Clubes.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insert_DimClubes\Dim_Pais"
+              componentClassID="Microsoft.SSISODBCSrc"
+              contactInfo="ODBC Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="ODBC Source"
+              name="Dim_Pais"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The name of the table to be fetched."
+                  expressionType="Notify"
+                  name="TableName">DimPais</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows fetched per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines how the component exposes CHAR columns. If False, CHAR columns are exposed as (multi-)byte strings (DT_STR), if True, CHAR columns are exposed as wide strings (DT_WSTR)"
+                  expressionType="Notify"
+                  name="ExposeCharColumnsAsUnicode">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for fetching data."
+                  expressionType="Notify"
+                  name="FetchMethod">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The mode used to access the database."
+                  expressionType="Notify"
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Insert_DimClubes\Dim_Pais.Connections[ODBCConnection]"
+                  connectionManagerID="{55184156-CD34-4453-9463-7F5EED9E93B8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[freesqldatabase.sql7738411]"
+                  description="The ODBC runtime connection used to access the database."
+                  name="ODBCConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output]"
+                  errorRowDisposition="FailComponent"
+                  name="ODBC Source Output"
+                  truncationRowDisposition="FailComponent">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output].Columns[ID]"
+                      dataType="i4"
+                      externalMetadataColumnId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[ID]"
+                      lineageId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output].Columns[ID]"
+                      name="ID" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[Nome]"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]"
+                      name="Nome" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[Nome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Nome" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ID]"
+                      dataType="i4"
+                      externalMetadataColumnId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[ID]"
+                      lineageId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ID]"
+                      name="ID" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Error Output].Columns[Nome]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[Nome]"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Error Output].Columns[Nome]"
+                      name="Nome" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insert_DimClubes\Juntar"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combine two sorted data flows into one using the FULL, LEFT, or INNER join. We recommend this transformation when data flows can be sorted at their sources."
+              name="Juntar"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Insert_DimClubes\Juntar.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Juntar.Inputs[Merge Join Left Input].Columns[ClubePais_STR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="ClubePais_STR"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Insert_DimClubes\Ordernar País 1.Outputs[Sort Output].Columns[ClubePais_STR]" />
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Juntar.Inputs[Merge Join Left Input].Columns[ClubeNome]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="ClubeNome"
+                      lineageId="Package\Insert_DimClubes\Ordernar País 1.Outputs[Sort Output].Columns[ClubeNome]" />
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Juntar.Inputs[Merge Join Left Input].Columns[ClubeCode_STR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="ClubeCode_STR"
+                      lineageId="Package\Insert_DimClubes\Ordernar País 1.Outputs[Sort Output].Columns[ClubeCode_STR]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Insert_DimClubes\Juntar.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Juntar.Inputs[Merge Join Right Input].Columns[Nome_STR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Nome_STR"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Insert_DimClubes\Ordernar País 2.Outputs[Sort Output].Columns[Nome_STR]" />
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Juntar.Inputs[Merge Join Right Input].Columns[ID]"
+                      cachedDataType="i4"
+                      cachedName="ID"
+                      lineageId="Package\Insert_DimClubes\Ordernar País 2.Outputs[Sort Output].Columns[ID]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insert_DimClubes\Juntar.Outputs[Merge Join Output]"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Juntar.Outputs[Merge Join Output].Columns[ID]"
+                      dataType="i4"
+                      lineageId="Package\Insert_DimClubes\Juntar.Outputs[Merge Join Output].Columns[ID]"
+                      name="ID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Insert_DimClubes\Juntar.Inputs[Merge Join Right Input].Columns[ID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Juntar.Outputs[Merge Join Output].Columns[ClubeNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Juntar.Outputs[Merge Join Output].Columns[ClubeNome]"
+                      name="ClubeNome">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Insert_DimClubes\Juntar.Inputs[Merge Join Left Input].Columns[ClubeNome]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Juntar.Outputs[Merge Join Output].Columns[ClubeCode_STR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Juntar.Outputs[Merge Join Output].Columns[ClubeCode_STR]"
+                      name="ClubeCode_STR">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Insert_DimClubes\Juntar.Inputs[Merge Join Left Input].Columns[ClubeCode_STR]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insert_DimClubes\ODBC Source"
+              componentClassID="Microsoft.SSISODBCSrc"
+              contactInfo="ODBC Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="ODBC Source"
+              name="ODBC Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The name of the table to be fetched."
+                  expressionType="Notify"
+                  name="TableName">Json_Clubes</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows fetched per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines how the component exposes CHAR columns. If False, CHAR columns are exposed as (multi-)byte strings (DT_STR), if True, CHAR columns are exposed as wide strings (DT_WSTR)"
+                  expressionType="Notify"
+                  name="ExposeCharColumnsAsUnicode">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for fetching data."
+                  expressionType="Notify"
+                  name="FetchMethod">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The mode used to access the database."
+                  expressionType="Notify"
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Insert_DimClubes\ODBC Source.Connections[ODBCConnection]"
+                  connectionManagerID="{55184156-CD34-4453-9463-7F5EED9E93B8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[freesqldatabase.sql7738411]"
+                  description="The ODBC runtime connection used to access the database."
+                  name="ODBCConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output]"
+                  errorRowDisposition="FailComponent"
+                  name="ODBC Source Output"
+                  truncationRowDisposition="FailComponent">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Nome_Liga]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[Nome_Liga]"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Nome_Liga]"
+                      name="Nome_Liga" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Clube_Nome]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[Clube_Nome]"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Clube_Nome]"
+                      name="Clube_Nome" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Clube_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[Clube_Code]"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Clube_Code]"
+                      name="Clube_Code" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Clube_Pais]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[Clube_Pais]"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Clube_Pais]"
+                      name="Clube_Pais" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[Nome_Liga]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Nome_Liga" />
+                    <externalMetadataColumn
+                      refId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[Clube_Nome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Clube_Nome" />
+                    <externalMetadataColumn
+                      refId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[Clube_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Clube_Code" />
+                    <externalMetadataColumn
+                      refId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[Clube_Pais]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Clube_Pais" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Error Output].Columns[Nome_Liga]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[Nome_Liga]"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Error Output].Columns[Nome_Liga]"
+                      name="Nome_Liga" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Error Output].Columns[Clube_Nome]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[Clube_Nome]"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Error Output].Columns[Clube_Nome]"
+                      name="Clube_Nome" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Error Output].Columns[Clube_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[Clube_Code]"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Error Output].Columns[Clube_Code]"
+                      name="Clube_Code" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Error Output].Columns[Clube_Pais]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[Clube_Pais]"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Error Output].Columns[Clube_Pais]"
+                      name="Clube_Pais" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insert_DimClubes\Ordernar País 1"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Ordernar País 1"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Insert_DimClubes\Ordernar País 1.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Ordernar País 1.Inputs[Sort Input].Columns[ClubeNome]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="ClubeNome"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Insert_DimClubes\Remover Equipas Repetidas.Outputs[Sort Output].Columns[ClubeNome]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Ordernar País 1.Inputs[Sort Input].Columns[ClubeCode_STR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="ClubeCode_STR"
+                      lineageId="Package\Insert_DimClubes\Remover Equipas Repetidas.Outputs[Sort Output].Columns[ClubeCode_STR]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Ordernar País 1.Inputs[Sort Input].Columns[ClubePais_STR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="ClubePais_STR"
+                      lineageId="Package\Insert_DimClubes\Remover Equipas Repetidas.Outputs[Sort Output].Columns[ClubePais_STR]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insert_DimClubes\Ordernar País 1.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Ordernar País 1.Outputs[Sort Output].Columns[ClubeNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Ordernar País 1.Outputs[Sort Output].Columns[ClubeNome]"
+                      name="ClubeNome">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Insert_DimClubes\Remover Equipas Repetidas.Outputs[Sort Output].Columns[ClubeNome]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Ordernar País 1.Outputs[Sort Output].Columns[ClubeCode_STR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Ordernar País 1.Outputs[Sort Output].Columns[ClubeCode_STR]"
+                      name="ClubeCode_STR">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Insert_DimClubes\Remover Equipas Repetidas.Outputs[Sort Output].Columns[ClubeCode_STR]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Ordernar País 1.Outputs[Sort Output].Columns[ClubePais_STR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Ordernar País 1.Outputs[Sort Output].Columns[ClubePais_STR]"
+                      name="ClubePais_STR"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Insert_DimClubes\Remover Equipas Repetidas.Outputs[Sort Output].Columns[ClubePais_STR]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insert_DimClubes\Ordernar País 2"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Ordernar País 2"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Insert_DimClubes\Ordernar País 2.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Ordernar País 2.Inputs[Sort Input].Columns[ID]"
+                      cachedDataType="i4"
+                      cachedName="ID"
+                      lineageId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output].Columns[ID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Ordernar País 2.Inputs[Sort Input].Columns[Nome]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Nome"
+                      lineageId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Ordernar País 2.Inputs[Sort Input].Columns[Nome_STR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Nome_STR"
+                      lineageId="Package\Insert_DimClubes\Converter 2.Outputs[Derived Column Output].Columns[Nome_STR]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insert_DimClubes\Ordernar País 2.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Ordernar País 2.Outputs[Sort Output].Columns[ID]"
+                      dataType="i4"
+                      lineageId="Package\Insert_DimClubes\Ordernar País 2.Outputs[Sort Output].Columns[ID]"
+                      name="ID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output].Columns[ID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Ordernar País 2.Outputs[Sort Output].Columns[Nome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Ordernar País 2.Outputs[Sort Output].Columns[Nome]"
+                      name="Nome">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Ordernar País 2.Outputs[Sort Output].Columns[Nome_STR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Ordernar País 2.Outputs[Sort Output].Columns[Nome_STR]"
+                      name="Nome_STR"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Insert_DimClubes\Converter 2.Outputs[Derived Column Output].Columns[Nome_STR]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insert_DimClubes\Remover Equipas Repetidas"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Remover Equipas Repetidas"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Insert_DimClubes\Remover Equipas Repetidas.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Remover Equipas Repetidas.Inputs[Sort Input].Columns[ClubeNome]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="ClubeNome"
+                      lineageId="Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Output].Columns[ClubeNome]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Remover Equipas Repetidas.Inputs[Sort Input].Columns[ClubeCode_STR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="ClubeCode_STR"
+                      lineageId="Package\Insert_DimClubes\Converter 1.Outputs[Derived Column Output].Columns[ClubeCode_STR]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Remover Equipas Repetidas.Inputs[Sort Input].Columns[ClubePais_STR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="ClubePais_STR"
+                      lineageId="Package\Insert_DimClubes\Converter 1.Outputs[Derived Column Output].Columns[ClubePais_STR]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insert_DimClubes\Remover Equipas Repetidas.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Remover Equipas Repetidas.Outputs[Sort Output].Columns[ClubeNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Remover Equipas Repetidas.Outputs[Sort Output].Columns[ClubeNome]"
+                      name="ClubeNome"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Output].Columns[ClubeNome]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Remover Equipas Repetidas.Outputs[Sort Output].Columns[ClubeCode_STR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Remover Equipas Repetidas.Outputs[Sort Output].Columns[ClubeCode_STR]"
+                      name="ClubeCode_STR">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Insert_DimClubes\Converter 1.Outputs[Derived Column Output].Columns[ClubeCode_STR]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Remover Equipas Repetidas.Outputs[Sort Output].Columns[ClubePais_STR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Remover Equipas Repetidas.Outputs[Sort Output].Columns[ClubePais_STR]"
+                      name="ClubePais_STR">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Insert_DimClubes\Converter 1.Outputs[Derived Column Output].Columns[ClubePais_STR]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insert_DimClubes\Tratar de Valores NULL"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Tratar de Valores NULL"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Insert_DimClubes\Tratar de Valores NULL.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Tratar de Valores NULL.Inputs[Derived Column Input].Columns[Clube_Nome]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Clube_Nome"
+                      lineageId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Clube_Nome]" />
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Tratar de Valores NULL.Inputs[Derived Column Input].Columns[Clube_Code]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Clube_Code"
+                      lineageId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Clube_Code]" />
+                    <inputColumn
+                      refId="Package\Insert_DimClubes\Tratar de Valores NULL.Inputs[Derived Column Input].Columns[Clube_Pais]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Clube_Pais"
+                      lineageId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Clube_Pais]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Insert_DimClubes\Tratar de Valores NULL.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Output].Columns[ClubeNome]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Output].Columns[ClubeNome]"
+                      name="ClubeNome"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,255,1252)#{Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Clube_Nome]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,255,1252)Clube_Nome</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Output].Columns[ClubeCode]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Output].Columns[ClubeCode]"
+                      name="ClubeCode"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Clube_Code]}) ? "undefined" : (DT_STR,255,1252)#{Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Clube_Code]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(Clube_Code) ? "undefined" : (DT_STR,255,1252)Clube_Code</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Output].Columns[ClubePais]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Output].Columns[ClubePais]"
+                      name="ClubePais"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Clube_Pais]}) ? "undefined" : (DT_STR,255,1252)#{Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output].Columns[Clube_Pais]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(Clube_Pais) ? "undefined" : (DT_STR,255,1252)Clube_Pais</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Insert_DimClubes\Tratar de Valores NULL.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Insert_DimClubes.Paths[Case 1]"
+              endId="Package\Insert_DimClubes\Tratar de Valores NULL.Inputs[Derived Column Input]"
+              name="Case 1"
+              startId="Package\Insert_DimClubes\Conditional Split.Outputs[Case 1]" />
+            <path
+              refId="Package\Insert_DimClubes.Paths[Derived Column Output]"
+              endId="Package\Insert_DimClubes\Converter 1.Inputs[Derived Column Input]"
+              name="Derived Column Output"
+              startId="Package\Insert_DimClubes\Tratar de Valores NULL.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Insert_DimClubes.Paths[Derived Column Output1]"
+              endId="Package\Insert_DimClubes\Remover Equipas Repetidas.Inputs[Sort Input]"
+              name="Derived Column Output"
+              startId="Package\Insert_DimClubes\Converter 1.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Insert_DimClubes.Paths[Derived Column Output2]"
+              endId="Package\Insert_DimClubes\Ordernar País 2.Inputs[Sort Input]"
+              name="Derived Column Output"
+              startId="Package\Insert_DimClubes\Converter 2.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Insert_DimClubes.Paths[Merge Join Output]"
+              endId="Package\Insert_DimClubes\Dim_Clubes.Inputs[ODBC Destination Input]"
+              name="Merge Join Output"
+              startId="Package\Insert_DimClubes\Juntar.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\Insert_DimClubes.Paths[ODBC Source Output]"
+              endId="Package\Insert_DimClubes\Conditional Split.Inputs[Conditional Split Input]"
+              name="ODBC Source Output"
+              startId="Package\Insert_DimClubes\ODBC Source.Outputs[ODBC Source Output]" />
+            <path
+              refId="Package\Insert_DimClubes.Paths[ODBC Source Output1]"
+              endId="Package\Insert_DimClubes\Converter 2.Inputs[Derived Column Input]"
+              name="ODBC Source Output"
+              startId="Package\Insert_DimClubes\Dim_Pais.Outputs[ODBC Source Output]" />
+            <path
+              refId="Package\Insert_DimClubes.Paths[Sort Output]"
+              endId="Package\Insert_DimClubes\Ordernar País 1.Inputs[Sort Input]"
+              name="Sort Output"
+              startId="Package\Insert_DimClubes\Remover Equipas Repetidas.Outputs[Sort Output]" />
+            <path
+              refId="Package\Insert_DimClubes.Paths[Sort Output1]"
+              endId="Package\Insert_DimClubes\Juntar.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\Insert_DimClubes\Ordernar País 1.Outputs[Sort Output]" />
+            <path
+              refId="Package\Insert_DimClubes.Paths[Sort Output2]"
+              endId="Package\Insert_DimClubes\Juntar.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\Insert_DimClubes\Ordernar País 2.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate_DimClubes"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarefa Executar SQL"
+      DTS:DTSID="{BB4763D0-24A0-4763-9004-ACDBA6836F9E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="2070"
+      DTS:ObjectName="Truncate_DimClubes"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{55184156-CD34-4453-9463-7F5EED9E93B8}"
+          SQLTask:SqlStatementSource="Truncate Table DimClubes;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restrição]"
+      DTS:CreationName=""
+      DTS:DTSID="{50A2628F-A75E-41DE-B166-BB03B2883DA6}"
+      DTS:From="Package\Truncate_DimClubes"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restrição"
+      DTS:To="Package\Insert_DimClubes" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta seção CDATA contém as informações de layout do pacote. A seção inclui informações como coordenadas (x,y), largura e altura.-->
+<!--Se você editar manualmente esta seção e cometer algum erro, poderá excluí-la. -->
+<!--O pacote ainda poderá ser carregado normalmente, mas as informações de layout anteriores serão perdidas e o designer reorganizará automaticamente os elementos na superfície de design.-->
+<Objects
+  Version="8">
+  <!--Cada nó abaixo conterá propriedades que não afetam o comportamento em tempo de execução.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="204,42"
+          Id="Package\Insert_DimClubes"
+          TopLeft="279.5,27.5" />
+        <NodeLayout
+          Size="182,42"
+          Id="Package\Truncate_DimClubes"
+          TopLeft="46,28" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restrição]"
+          TopLeft="228,48.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="51.5,0"
+              Start="0,0"
+              End="44,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="44,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Insert_DimClubes">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Insert_DimClubes\Ordernar País 2"
+          TopLeft="862.111111111111,326.666666666667" />
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Insert_DimClubes\Converter 1"
+          TopLeft="254,307" />
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Insert_DimClubes\Converter 2"
+          TopLeft="856.111111111111,204.666666666667" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Insert_DimClubes\Ordernar País 1"
+          TopLeft="645.611111111111,245.529553733664" />
+        <NodeLayout
+          Size="195,42"
+          Id="Package\Insert_DimClubes\Tratar de Valores NULL"
+          TopLeft="79,225" />
+        <NodeLayout
+          Size="219,42"
+          Id="Package\Insert_DimClubes\Remover Equipas Repetidas"
+          TopLeft="447.111111111111,164.666666666667" />
+        <NodeLayout
+          Size="110,42"
+          Id="Package\Insert_DimClubes\Juntar"
+          TopLeft="670.111111111111,330.666666666667" />
+        <NodeLayout
+          Size="159,42"
+          Id="Package\Insert_DimClubes\Conditional Split"
+          TopLeft="65.1111111111111,114.111111111111" />
+        <EdgeLayout
+          Id="Package\Insert_DimClubes.Paths[Sort Output2]"
+          TopLeft="862.111111111111,349.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-82,0"
+              Start="0,0"
+              End="-74.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-74.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Insert_DimClubes.Paths[Sort Output1]"
+          TopLeft="724.361111111111,287.529553733664">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.1371129330029"
+              Start="0,0"
+              End="0,35.6371129330029">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.6371129330029" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Insert_DimClubes.Paths[Sort Output]"
+          TopLeft="591.777777777778,206.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="131.833333333333,38.8628870669971"
+              Start="0,0"
+              End="131.833333333333,31.3628870669971">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,11.7142770914603" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,11.7142770914603"
+                    Point2="0,15.7142770914603"
+                    Point3="4,15.7142770914603" />
+                  <mssgle:LineSegment
+                    End="127.833333333333,15.7142770914603" />
+                  <mssgle:CubicBezierSegment
+                    Point1="127.833333333333,15.7142770914603"
+                    Point2="131.833333333333,15.7142770914603"
+                    Point3="131.833333333333,19.7142770914603" />
+                  <mssgle:LineSegment
+                    End="131.833333333333,31.3628870669971" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Insert_DimClubes.Paths[Derived Column Output2]"
+          TopLeft="937.611111111111,246.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,80"
+              Start="0,0"
+              End="0,72.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,72.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Insert_DimClubes.Paths[Derived Column Output1]"
+          TopLeft="358,307">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="163.444444444444,-100.333333333333"
+              Start="0,0"
+              End="163.444444444444,-92.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-46.3397725987102" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-46.3397725987102"
+                    Point2="0,-50.3397725987102"
+                    Point3="4,-50.3397725987102" />
+                  <mssgle:LineSegment
+                    End="159.444444444444,-50.3397725987102" />
+                  <mssgle:CubicBezierSegment
+                    Point1="159.444444444444,-50.3397725987102"
+                    Point2="163.444444444444,-50.3397725987102"
+                    Point3="163.444444444444,-54.3397725987102" />
+                  <mssgle:LineSegment
+                    End="163.444444444444,-92.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Insert_DimClubes.Paths[Derived Column Output]"
+          TopLeft="176.5,267">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="131.5,40"
+              Start="0,0"
+              End="131.5,32.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.7593984962406" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.7593984962406"
+                    Point2="0,23.7593984962406"
+                    Point3="4,23.7593984962406" />
+                  <mssgle:LineSegment
+                    End="127.5,23.7593984962406" />
+                  <mssgle:CubicBezierSegment
+                    Point1="127.5,23.7593984962406"
+                    Point2="131.5,23.7593984962406"
+                    Point3="131.5,27.7593984962406" />
+                  <mssgle:LineSegment
+                    End="131.5,32.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Insert_DimClubes.Paths[Case 1]"
+          TopLeft="144.611111111111,156.111111111111">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="31.8888888888889,68.8888888888889"
+              Start="0,0"
+              End="31.8888888888889,61.3888888888889">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.4444444444445" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,30.4444444444445"
+                    Point2="0,34.4444444444445"
+                    Point3="4,34.4444444444445" />
+                  <mssgle:LineSegment
+                    End="27.8888888888889,34.4444444444445" />
+                  <mssgle:CubicBezierSegment
+                    Point1="27.8888888888889,34.4444444444445"
+                    Point2="31.8888888888889,34.4444444444445"
+                    Point3="31.8888888888889,38.4444444444445" />
+                  <mssgle:LineSegment
+                    End="31.8888888888889,61.3888888888889" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0.726358506944452,39.4444444444445,30.436171875,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="149,42"
+          Id="Package\Insert_DimClubes\ODBC Source"
+          TopLeft="193,17" />
+        <EdgeLayout
+          Id="Package\Insert_DimClubes.Paths[ODBC Source Output]"
+          TopLeft="267.5,59">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-122.888888888889,55.111111111111"
+              Start="0,0"
+              End="-122.888888888889,47.611111111111">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5555555555555" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.5555555555555"
+                    Point2="0,27.5555555555555"
+                    Point3="-4,27.5555555555555" />
+                  <mssgle:LineSegment
+                    End="-118.888888888889,27.5555555555555" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-118.888888888889,27.5555555555555"
+                    Point2="-122.888888888889,27.5555555555555"
+                    Point3="-122.888888888889,31.5555555555555" />
+                  <mssgle:LineSegment
+                    End="-122.888888888889,47.611111111111" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="126,42"
+          Id="Package\Insert_DimClubes\Dim_Pais"
+          TopLeft="873.111111111111,85.6666666666667" />
+        <EdgeLayout
+          Id="Package\Insert_DimClubes.Paths[ODBC Source Output1]"
+          TopLeft="935.611111111111,127.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,77"
+              Start="0,0"
+              End="0,69.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,69.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="169,42"
+          Id="Package\Insert_DimClubes\Dim_Clubes"
+          TopLeft="642.111111111111,437.666666666667" />
+        <EdgeLayout
+          Id="Package\Insert_DimClubes.Paths[Merge Join Output]"
+          TopLeft="725.861111111111,372.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,65"
+              Start="0,0"
+              End="0,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Insert_DimClubes\ODBC Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Insert_DimClubes\Dim_Pais">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Insert_DimClubes\Dim_Clubes">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

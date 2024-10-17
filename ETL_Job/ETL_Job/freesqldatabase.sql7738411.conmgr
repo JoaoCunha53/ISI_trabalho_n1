@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="freesqldatabase.sql7738411"
+  DTS:DTSID="{55184156-CD34-4453-9463-7F5EED9E93B8}"
+  DTS:CreationName="ODBC">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="uid=sql7738411;Dsn=freesqldatabase;">
+      <DTS:Password
+        DTS:Name="pwd"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAATfHbzT08z0qCj/iBC26EiAAAAAACAAAAAAAQZgAAAAEAACAAAAAIm9OIJyFEajouNSXOsHqadFhwa0jACQhlGAjH0DtIWAAAAAAOgAAAAAIAACAAAABdnzH0sD93QX/QzedE+Tv/os08IQWgm7vCNkii/uZdOYAAAAC6uOtA0h2Luvs6dK6VV9dqp9T8jW0srRU0bd666UR8qpQPPmbnzgYBsIzBbleW/3t4NhvSFV29KzbuwVyMV7geRulDPglGY8yCzSHhBVWuSQVEgCYFaJ5BchnXnrFTAAEmoK5V0taesssv28XZHJD5XV1rrclwQuZkB8fWFoxUdEAAAACPQ6KineA7hF0pq7Ad+OunWGLrmws/EBRBNgJxIbp4nd9Oh9/CAsXW8DD8PXPnNrp3gicoPdZuvejLh9kwM3Mz</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
