@@ -7,31 +7,48 @@
   DTS:CreatorName="DESKTOP-5G0AINV\João Cunha"
   DTS:DTSID="{F8001EC6-ABC9-49FF-82D1-F111649D5DB2}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="16.0.5556.0"
+  DTS:LastModifiedProductVersion="16.0.5397.1"
   DTS:LocaleID="2070"
   DTS:ObjectName="En1_2010-11"
   DTS:PackageType="5"
-  DTS:VersionBuild="31"
-  DTS:VersionGUID="{838E4216-4BD6-4FC8-BF67-31126BF4F751}">
+  DTS:VersionBuild="32"
+  DTS:VersionGUID="{15CDF3AB-0A02-4868-AE19-1FE953E8F00C}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\Data Flow Task"
+      DTS:refId="Package\Job"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarefa Executar SQL"
+      DTS:DTSID="{3929d35f-5b12-4ea8-a232-29a468292efd}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Job"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{55184156-CD34-4453-9463-7F5EED9E93B8}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE Json_Jogos" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Transform"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
       DTS:DTSID="{b11ad004-8e81-4cf3-99d1-b95eecff37bc}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Data Flow Task">
+      DTS:ObjectName="Transform">
       <DTS:Variables />
       <DTS:ObjectData>
         <pipeline
           version="1">
           <components>
             <component
-              refId="Package\Data Flow Task\JSON Source"
+              refId="Package\Transform\JSON Source"
               componentClassID="Microsoft.ManagedComponentHost"
               contactInfo="Extracts data from JSON source.; COZYROC LLC; SSIS+; © 2006-2024 COZYROC LLC; All Rights Reserved; http://www.cozyroc.com/;0"
               description="Extracts data from JSON source."
@@ -116,83 +133,83 @@
               </properties>
               <outputs>
                 <output
-                  refId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Output]"
+                  refId="Package\Transform\JSON Source.Outputs[JSON Source Output]"
                   name="JSON Source Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Output].Columns[games]"
+                      refId="Package\Transform\JSON Source.Outputs[JSON Source Output].Columns[games]"
                       dataType="nText"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Output].ExternalColumns[games]"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Output].Columns[games]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[JSON Source Output].ExternalColumns[games]"
+                      lineageId="Package\Transform\JSON Source.Outputs[JSON Source Output].Columns[games]"
                       name="games"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Output].ExternalColumns[games]"
+                      refId="Package\Transform\JSON Source.Outputs[JSON Source Output].ExternalColumns[games]"
                       dataType="nText"
                       name="games" />
                   </externalMetadataColumns>
                 </output>
                 <output
-                  refId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Complete JSON Output]"
+                  refId="Package\Transform\JSON Source.Outputs[JSON Source Complete JSON Output]"
                   name="JSON Source Complete JSON Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Complete JSON Output].Columns[$JSON]"
+                      refId="Package\Transform\JSON Source.Outputs[JSON Source Complete JSON Output].Columns[$JSON]"
                       dataType="nText"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Complete JSON Output].ExternalColumns[$JSON]"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Complete JSON Output].Columns[$JSON]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[JSON Source Complete JSON Output].ExternalColumns[$JSON]"
+                      lineageId="Package\Transform\JSON Source.Outputs[JSON Source Complete JSON Output].Columns[$JSON]"
                       name="$JSON"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Complete JSON Output].ExternalColumns[$JSON]"
+                      refId="Package\Transform\JSON Source.Outputs[JSON Source Complete JSON Output].ExternalColumns[$JSON]"
                       dataType="nText"
                       description="Represents the complete JSON object."
                       name="$JSON" />
                   </externalMetadataColumns>
                 </output>
                 <output
-                  refId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Error Output]"
+                  refId="Package\Transform\JSON Source.Outputs[JSON Source Error Output]"
                   isErrorOut="true"
                   name="JSON Source Error Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Error Output].Columns[ErrorCode]"
+                      refId="Package\Transform\JSON Source.Outputs[JSON Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Transform\JSON Source.Outputs[JSON Source Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Error Output].Columns[ErrorColumn]"
+                      refId="Package\Transform\JSON Source.Outputs[JSON Source Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Transform\JSON Source.Outputs[JSON Source Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Error Output].Columns[ErrorDescription]"
+                      refId="Package\Transform\JSON Source.Outputs[JSON Source Error Output].Columns[ErrorDescription]"
                       dataType="wstr"
                       length="1024"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Error Output].Columns[ErrorDescription]"
+                      lineageId="Package\Transform\JSON Source.Outputs[JSON Source Error Output].Columns[ErrorDescription]"
                       name="ErrorDescription" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Error Output].Columns[games]"
+                      refId="Package\Transform\JSON Source.Outputs[JSON Source Error Output].Columns[games]"
                       dataType="nText"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[JSON Source Error Output].Columns[games]"
+                      lineageId="Package\Transform\JSON Source.Outputs[JSON Source Error Output].Columns[games]"
                       name="games" />
                   </outputColumns>
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}]"
+                  refId="Package\Transform\JSON Source.Outputs[games__{\}]"
                   name="games__{}">
                   <properties>
                     <property
@@ -202,53 +219,53 @@
                   </properties>
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}].Columns[games]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}].Columns[games]"
                       dataType="nText"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}].ExternalColumns[games]"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}].Columns[games]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}].ExternalColumns[games]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}].Columns[games]"
                       name="games"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}].Columns[games.{\}.name]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}].Columns[games.{\}.name]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}].ExternalColumns[games.{\}.name]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}].ExternalColumns[games.{\}.name]"
                       length="256"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}].Columns[games.{\}.name]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}].Columns[games.{\}.name]"
                       name="games.{}.name"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}].Columns[games.{\}.rounds]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}].Columns[games.{\}.rounds]"
                       dataType="nText"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}].ExternalColumns[games.{\}.rounds]"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}].Columns[games.{\}.rounds]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}].ExternalColumns[games.{\}.rounds]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}].Columns[games.{\}.rounds]"
                       name="games.{}.rounds"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}].ExternalColumns[games]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}].ExternalColumns[games]"
                       dataType="nText"
                       name="games" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}].ExternalColumns[games.{\}.name]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}].ExternalColumns[games.{\}.name]"
                       dataType="wstr"
                       length="256"
                       name="games.{}.name" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}].ExternalColumns[games.{\}.rounds]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}].ExternalColumns[games.{\}.rounds]"
                       dataType="nText"
                       name="games.{}.rounds" />
                   </externalMetadataColumns>
                 </output>
                 <output
-                  refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}]"
+                  refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}]"
                   name="games__{}__rounds__{}">
                   <properties>
                     <property
@@ -258,81 +275,81 @@
                   </properties>
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games]"
                       dataType="nText"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games]"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games]"
                       name="games"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games.{\}.name]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games.{\}.name]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games.{\}.name]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games.{\}.name]"
                       length="256"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games.{\}.name]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games.{\}.name]"
                       name="games.{}.name"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games.{\}.rounds]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games.{\}.rounds]"
                       dataType="nText"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games.{\}.rounds]"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games.{\}.rounds]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games.{\}.rounds]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games.{\}.rounds]"
                       name="games.{}.rounds"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games.{\}.rounds.{\}.name]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games.{\}.rounds.{\}.name]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games.{\}.rounds.{\}.name]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games.{\}.rounds.{\}.name]"
                       length="256"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games.{\}.rounds.{\}.name]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games.{\}.rounds.{\}.name]"
                       name="games.{}.rounds.{}.name"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games.{\}.rounds.{\}.matches]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games.{\}.rounds.{\}.matches]"
                       dataType="nText"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games.{\}.rounds.{\}.matches]"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games.{\}.rounds.{\}.matches]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games.{\}.rounds.{\}.matches]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].Columns[games.{\}.rounds.{\}.matches]"
                       name="games.{}.rounds.{}.matches"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games]"
                       dataType="nText"
                       name="games" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games.{\}.name]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games.{\}.name]"
                       dataType="wstr"
                       length="256"
                       name="games.{}.name" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games.{\}.rounds]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games.{\}.rounds]"
                       dataType="nText"
                       name="games.{}.rounds" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games.{\}.rounds.{\}.name]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games.{\}.rounds.{\}.name]"
                       dataType="wstr"
                       length="256"
                       name="games.{}.rounds.{}.name" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games.{\}.rounds.{\}.matches]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}].ExternalColumns[games.{\}.rounds.{\}.matches]"
                       dataType="nText"
                       name="games.{}.rounds.{}.matches" />
                   </externalMetadataColumns>
                 </output>
                 <output
-                  refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}]"
+                  refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}]"
                   name="games__{}__rounds__{}__matches__{}">
                   <properties>
                     <property
@@ -342,140 +359,140 @@
                   </properties>
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games]"
                       dataType="nText"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games]"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games]"
                       name="games"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.name]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.name]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.name]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.name]"
                       length="50"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.name]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.name]"
                       name="games.{}.name"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds]"
                       dataType="nText"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds]"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds]"
                       name="games.{}.rounds"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.name]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.name]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.name]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.name]"
                       length="50"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.name]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.name]"
                       name="games.{}.rounds.{}.name"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches]"
                       dataType="nText"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches]"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches]"
                       name="games.{}.rounds.{}.matches"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.date]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.date]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches.{\}.date]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches.{\}.date]"
                       length="50"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.date]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.date]"
                       name="games.{}.rounds.{}.matches.{}.date"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.team1]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.team1]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches.{\}.team1]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches.{\}.team1]"
                       length="50"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.team1]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.team1]"
                       name="games.{}.rounds.{}.matches.{}.team1"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.team2]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.team2]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches.{\}.team2]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches.{\}.team2]"
                       length="50"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.team2]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.team2]"
                       name="games.{}.rounds.{}.matches.{}.team2"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.score.ft]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.score.ft]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches.{\}.score.ft]"
+                      externalMetadataColumnId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches.{\}.score.ft]"
                       length="50"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.score.ft]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.score.ft]"
                       name="games.{}.rounds.{}.matches.{}.score.ft"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games]"
                       dataType="nText"
                       name="games" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.name]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.name]"
                       dataType="wstr"
                       length="256"
                       name="games.{}.name" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds]"
                       dataType="nText"
                       name="games.{}.rounds" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.name]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.name]"
                       dataType="wstr"
                       length="256"
                       name="games.{}.rounds.{}.name" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches]"
                       dataType="nText"
                       name="games.{}.rounds.{}.matches" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches.{\}.date]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches.{\}.date]"
                       dataType="wstr"
                       length="256"
                       name="games.{}.rounds.{}.matches.{}.date" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches.{\}.team1]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches.{\}.team1]"
                       dataType="wstr"
                       length="256"
                       name="games.{}.rounds.{}.matches.{}.team1" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches.{\}.team2]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches.{\}.team2]"
                       dataType="wstr"
                       length="256"
                       name="games.{}.rounds.{}.matches.{}.team2" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches.{\}.score.ft]"
+                      refId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].ExternalColumns[games.{\}.rounds.{\}.matches.{\}.score.ft]"
                       dataType="nText"
                       name="games.{}.rounds.{}.matches.{}.score.ft" />
                   </externalMetadataColumns>
@@ -483,7 +500,7 @@
               </outputs>
             </component>
             <component
-              refId="Package\Data Flow Task\ODBC Destination"
+              refId="Package\Transform\ODBC Destination"
               componentClassID="Microsoft.SSISODBCDst"
               contactInfo="ODBC Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
               description="ODBC Destination"
@@ -539,7 +556,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\Data Flow Task\ODBC Destination.Connections[ODBCConnection]"
+                  refId="Package\Transform\ODBC Destination.Connections[ODBCConnection]"
                   connectionManagerID="{55184156-CD34-4453-9463-7F5EED9E93B8}:external"
                   connectionManagerRefId="Project.ConnectionManagers[freesqldatabase.sql7738411]"
                   description="The ODBC runtime connection used to access the database."
@@ -547,7 +564,7 @@
               </connections>
               <inputs>
                 <input
-                  refId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input]"
+                  refId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input]"
                   errorOrTruncationOperation="Insert"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
@@ -555,88 +572,88 @@
                   truncationRowDisposition="FailComponent">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].Columns[games.{\}.name]"
+                      refId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].Columns[games.{\}.name]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
                       cachedName="games.{}.name"
-                      externalMetadataColumnId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[NomeLiga]"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.name]" />
+                      externalMetadataColumnId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[NomeLiga]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.name]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].Columns[games.{\}.rounds.{\}.name]"
+                      refId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].Columns[games.{\}.rounds.{\}.name]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
                       cachedName="games.{}.rounds.{}.name"
-                      externalMetadataColumnId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Ronda]"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.name]" />
+                      externalMetadataColumnId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Ronda]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.name]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].Columns[games.{\}.rounds.{\}.matches.{\}.date]"
+                      refId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].Columns[games.{\}.rounds.{\}.matches.{\}.date]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
                       cachedName="games.{}.rounds.{}.matches.{}.date"
-                      externalMetadataColumnId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Data]"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.date]" />
+                      externalMetadataColumnId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Data]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.date]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].Columns[games.{\}.rounds.{\}.matches.{\}.team1]"
+                      refId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].Columns[games.{\}.rounds.{\}.matches.{\}.team1]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
                       cachedName="games.{}.rounds.{}.matches.{}.team1"
-                      externalMetadataColumnId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Equipa_Um]"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.team1]" />
+                      externalMetadataColumnId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Equipa_Um]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.team1]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].Columns[games.{\}.rounds.{\}.matches.{\}.team2]"
+                      refId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].Columns[games.{\}.rounds.{\}.matches.{\}.team2]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
                       cachedName="games.{}.rounds.{}.matches.{}.team2"
-                      externalMetadataColumnId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Equipa_Dois]"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.team2]" />
+                      externalMetadataColumnId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Equipa_Dois]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.team2]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].Columns[games.{\}.rounds.{\}.matches.{\}.score.ft]"
+                      refId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].Columns[games.{\}.rounds.{\}.matches.{\}.score.ft]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
                       cachedName="games.{}.rounds.{}.matches.{}.score.ft"
-                      externalMetadataColumnId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Resultado]"
-                      lineageId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.score.ft]" />
+                      externalMetadataColumnId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Resultado]"
+                      lineageId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}].Columns[games.{\}.rounds.{\}.matches.{\}.score.ft]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[NomeLiga]"
+                      refId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[NomeLiga]"
                       codePage="1252"
                       dataType="str"
                       length="255"
                       name="NomeLiga" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Ronda]"
+                      refId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Ronda]"
                       codePage="1252"
                       dataType="str"
                       length="255"
                       name="Ronda" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Data]"
+                      refId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Data]"
                       codePage="1252"
                       dataType="str"
                       length="255"
                       name="Data" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Equipa_Um]"
+                      refId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Equipa_Um]"
                       codePage="1252"
                       dataType="str"
                       length="255"
                       name="Equipa_Um" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Equipa_Dois]"
+                      refId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Equipa_Dois]"
                       codePage="1252"
                       dataType="str"
                       length="255"
                       name="Equipa_Dois" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Resultado]"
+                      refId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Resultado]"
                       codePage="1252"
                       dataType="str"
                       length="255"
@@ -646,22 +663,22 @@
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Data Flow Task\ODBC Destination.Outputs[ODBC Destination Error Output]"
+                  refId="Package\Transform\ODBC Destination.Outputs[ODBC Destination Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="ODBC Destination Error Output"
-                  synchronousInputId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input]">
+                  synchronousInputId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\ODBC Destination.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      refId="Package\Transform\ODBC Destination.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\ODBC Destination.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Transform\ODBC Destination.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\ODBC Destination.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      refId="Package\Transform\ODBC Destination.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\ODBC Destination.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Transform\ODBC Destination.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -672,29 +689,12 @@
           </components>
           <paths>
             <path
-              refId="Package\Data Flow Task.Paths[games__{\}__rounds__{\}__matches__{\}]"
-              endId="Package\Data Flow Task\ODBC Destination.Inputs[ODBC Destination Input]"
+              refId="Package\Transform.Paths[games__{\}__rounds__{\}__matches__{\}]"
+              endId="Package\Transform\ODBC Destination.Inputs[ODBC Destination Input]"
               name="games__{}__rounds__{}__matches__{}"
-              startId="Package\Data Flow Task\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}]" />
+              startId="Package\Transform\JSON Source.Outputs[games__{\}__rounds__{\}__matches__{\}]" />
           </paths>
         </pipeline>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable
-      DTS:refId="Package\Tarefa Executar SQL"
-      DTS:CreationName="Microsoft.ExecuteSQLTask"
-      DTS:Description="Tarefa Executar SQL"
-      DTS:DTSID="{3929d35f-5b12-4ea8-a232-29a468292efd}"
-      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="Tarefa Executar SQL"
-      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="0">
-      <DTS:Variables />
-      <DTS:ObjectData>
-        <SQLTask:SqlTaskData
-          SQLTask:Connection="{55184156-CD34-4453-9463-7F5EED9E93B8}"
-          SQLTask:SqlStatementSource="TRUNCATE TABLE Json_Jogos" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
@@ -703,10 +703,10 @@
       DTS:refId="Package.PrecedenceConstraints[Restrição]"
       DTS:CreationName=""
       DTS:DTSID="{1EFC42E3-A9BD-4AE0-AAE3-B71C37539ACE}"
-      DTS:From="Package\Tarefa Executar SQL"
+      DTS:From="Package\Job"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Restrição"
-      DTS:To="Package\Data Flow Task" />
+      DTS:To="Package\Transform" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--Esta seção CDATA contém as informações de layout do pacote. A seção inclui informações como coordenadas (x,y), largura e altura.-->
@@ -722,11 +722,11 @@
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="155,42"
-          Id="Package\Data Flow Task"
+          Id="Package\Transform"
           TopLeft="265,110" />
         <NodeLayout
           Size="176,42"
-          Id="Package\Tarefa Executar SQL"
+          Id="Package\Job"
           TopLeft="45,53" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restrição]"
@@ -766,20 +766,20 @@
     </LayoutInfo>
   </Package>
   <TaskHost
-    design-time-name="Package\Data Flow Task">
+    design-time-name="Package\Transform">
     <LayoutInfo>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="169,42"
-          Id="Package\Data Flow Task\ODBC Destination"
+          Id="Package\Transform\ODBC Destination"
           TopLeft="615,202" />
         <NodeLayout
           Size="142,42"
-          Id="Package\Data Flow Task\JSON Source"
+          Id="Package\Transform\JSON Source"
           TopLeft="359,79" />
         <EdgeLayout
-          Id="Package\Data Flow Task.Paths[games__{\}__rounds__{\}__matches__{\}]"
+          Id="Package\Transform.Paths[games__{\}__rounds__{\}__matches__{\}]"
           TopLeft="430,121">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -818,7 +818,7 @@
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\ODBC Destination">
+    design-time-name="Package\Transform\ODBC Destination">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

@@ -7,31 +7,48 @@
   DTS:CreatorName="DESKTOP-5G0AINV\João Cunha"
   DTS:DTSID="{C5885E95-8397-4632-A4DE-B9CEDDD66D0B}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="16.0.5556.0"
+  DTS:LastModifiedProductVersion="16.0.5397.1"
   DTS:LocaleID="2070"
   DTS:ObjectName="DimPais"
   DTS:PackageType="5"
-  DTS:VersionBuild="31"
-  DTS:VersionGUID="{EE75758C-C128-473A-814B-B530682497D6}">
+  DTS:VersionBuild="35"
+  DTS:VersionGUID="{26B00309-343A-41AC-8FA0-67BB6DA657DA}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\Insert_DimCompeticoes"
+      DTS:refId="Package\Job"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarefa Executar SQL"
+      DTS:DTSID="{7FD4D981-148C-4A54-89E6-B8EF561F6F4F}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Job"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{55184156-CD34-4453-9463-7F5EED9E93B8}"
+          SQLTask:SqlStatementSource="Truncate Table DimCompeticoes;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Transform"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
       DTS:DTSID="{4FE97C8E-5FEA-4A87-B4C3-AE51A440BF74}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Insert_DimCompeticoes">
+      DTS:ObjectName="Transform">
       <DTS:Variables />
       <DTS:ObjectData>
         <pipeline
           version="1">
           <components>
             <component
-              refId="Package\Insert_DimCompeticoes\Caso"
+              refId="Package\Transform\Caso"
               componentClassID="Microsoft.ConditionalSplit"
               contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
               description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
@@ -39,37 +56,37 @@
               usesDispositions="true">
               <inputs>
                 <input
-                  refId="Package\Insert_DimCompeticoes\Caso.Inputs[Conditional Split Input]"
+                  refId="Package\Transform\Caso.Inputs[Conditional Split Input]"
                   description="Input to the Conditional Split Transformation"
                   name="Conditional Split Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\Caso.Inputs[Conditional Split Input].Columns[Nome_Liga]"
+                      refId="Package\Transform\Caso.Inputs[Conditional Split Input].Columns[Nome_Liga]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Nome_Liga"
-                      lineageId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].Columns[Nome_Liga]" />
+                      lineageId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].Columns[Nome_Liga]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Insert_DimCompeticoes\Caso.Outputs[Case 1]"
+                  refId="Package\Transform\Caso.Outputs[Case 1]"
                   description="Output 1 of the Conditional Split Transformation"
                   errorOrTruncationOperation="Computation"
                   errorRowDisposition="FailComponent"
                   exclusionGroup="1"
                   name="Case 1"
-                  synchronousInputId="Package\Insert_DimCompeticoes\Caso.Inputs[Conditional Split Input]"
+                  synchronousInputId="Package\Transform\Caso.Inputs[Conditional Split Input]"
                   truncationRowDisposition="FailComponent">
                   <properties>
                     <property
                       containsID="true"
                       dataType="System.String"
                       description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
-                      name="Expression">[ISNULL](#{Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].Columns[Nome_Liga]}) ==  FALSE </property>
+                      name="Expression">[ISNULL](#{Package\Transform\Json_Clubes.Outputs[ODBC Source Output].Columns[Nome_Liga]}) ==  FALSE </property>
                     <property
                       containsID="true"
                       dataType="System.String"
@@ -84,11 +101,11 @@
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\Insert_DimCompeticoes\Caso.Outputs[Conditional Split Default Output]"
+                  refId="Package\Transform\Caso.Outputs[Conditional Split Default Output]"
                   description="Default Output of the Conditional Split Transformation"
                   exclusionGroup="1"
                   name="Conditional Split Default Output"
-                  synchronousInputId="Package\Insert_DimCompeticoes\Caso.Inputs[Conditional Split Input]">
+                  synchronousInputId="Package\Transform\Caso.Inputs[Conditional Split Input]">
                   <properties>
                     <property
                       dataType="System.Boolean"
@@ -97,23 +114,23 @@
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\Insert_DimCompeticoes\Caso.Outputs[Conditional Split Error Output]"
+                  refId="Package\Transform\Caso.Outputs[Conditional Split Error Output]"
                   description="Error Output of the Conditional Split Transformation"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Conditional Split Error Output"
-                  synchronousInputId="Package\Insert_DimCompeticoes\Caso.Inputs[Conditional Split Input]">
+                  synchronousInputId="Package\Transform\Caso.Inputs[Conditional Split Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Caso.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      refId="Package\Transform\Caso.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Insert_DimCompeticoes\Caso.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Transform\Caso.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Caso.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      refId="Package\Transform\Caso.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Insert_DimCompeticoes\Caso.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Transform\Caso.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -122,7 +139,7 @@
               </outputs>
             </component>
             <component
-              refId="Package\Insert_DimCompeticoes\Converter"
+              refId="Package\Transform\Converter"
               componentClassID="Microsoft.DerivedColumn"
               contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
               description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
@@ -130,37 +147,37 @@
               usesDispositions="true">
               <inputs>
                 <input
-                  refId="Package\Insert_DimCompeticoes\Converter.Inputs[Derived Column Input]"
+                  refId="Package\Transform\Converter.Inputs[Derived Column Input]"
                   description="Input to the Derived Column Transformation"
                   name="Derived Column Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\Converter.Inputs[Derived Column Input].Columns[Nome]"
+                      refId="Package\Transform\Converter.Inputs[Derived Column Input].Columns[Nome]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Nome"
-                      lineageId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]" />
+                      lineageId="Package\Transform\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Insert_DimCompeticoes\Converter.Outputs[Derived Column Output]"
+                  refId="Package\Transform\Converter.Outputs[Derived Column Output]"
                   description="Default Output of the Derived Column Transformation"
                   exclusionGroup="1"
                   name="Derived Column Output"
-                  synchronousInputId="Package\Insert_DimCompeticoes\Converter.Inputs[Derived Column Input]">
+                  synchronousInputId="Package\Transform\Converter.Inputs[Derived Column Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Converter.Outputs[Derived Column Output].Columns[Nome_STR]"
+                      refId="Package\Transform\Converter.Outputs[Derived Column Output].Columns[Nome_STR]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Computation"
                       errorRowDisposition="FailComponent"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Converter.Outputs[Derived Column Output].Columns[Nome_STR]"
+                      lineageId="Package\Transform\Converter.Outputs[Derived Column Output].Columns[Nome_STR]"
                       name="Nome_STR"
                       truncationRowDisposition="FailComponent">
                       <properties>
@@ -168,7 +185,7 @@
                           containsID="true"
                           dataType="System.String"
                           description="Derived Column Expression"
-                          name="Expression">(DT_STR,255,1252)#{Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]}</property>
+                          name="Expression">(DT_STR,255,1252)#{Package\Transform\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]}</property>
                         <property
                           containsID="true"
                           dataType="System.String"
@@ -181,23 +198,23 @@
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\Insert_DimCompeticoes\Converter.Outputs[Derived Column Error Output]"
+                  refId="Package\Transform\Converter.Outputs[Derived Column Error Output]"
                   description="Error Output of the Derived Column Transformation"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Derived Column Error Output"
-                  synchronousInputId="Package\Insert_DimCompeticoes\Converter.Inputs[Derived Column Input]">
+                  synchronousInputId="Package\Transform\Converter.Inputs[Derived Column Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Converter.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      refId="Package\Transform\Converter.Outputs[Derived Column Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Insert_DimCompeticoes\Converter.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Transform\Converter.Outputs[Derived Column Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Converter.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      refId="Package\Transform\Converter.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Insert_DimCompeticoes\Converter.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Transform\Converter.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -206,7 +223,7 @@
               </outputs>
             </component>
             <component
-              refId="Package\Insert_DimCompeticoes\Converter STR"
+              refId="Package\Transform\Converter STR"
               componentClassID="Microsoft.DerivedColumn"
               contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
               description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
@@ -214,44 +231,44 @@
               usesDispositions="true">
               <inputs>
                 <input
-                  refId="Package\Insert_DimCompeticoes\Converter STR.Inputs[Derived Column Input]"
+                  refId="Package\Transform\Converter STR.Inputs[Derived Column Input]"
                   description="Input to the Derived Column Transformation"
                   name="Derived Column Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\Converter STR.Inputs[Derived Column Input].Columns[Nome_Liga]"
+                      refId="Package\Transform\Converter STR.Inputs[Derived Column Input].Columns[Nome_Liga]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Nome_Liga"
-                      lineageId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].Columns[Nome_Liga]" />
+                      lineageId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].Columns[Nome_Liga]" />
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\Converter STR.Inputs[Derived Column Input].Columns[Clube_Pais]"
+                      refId="Package\Transform\Converter STR.Inputs[Derived Column Input].Columns[Clube_Pais]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Clube_Pais"
-                      lineageId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].Columns[Clube_Pais]" />
+                      lineageId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].Columns[Clube_Pais]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Insert_DimCompeticoes\Converter STR.Outputs[Derived Column Output]"
+                  refId="Package\Transform\Converter STR.Outputs[Derived Column Output]"
                   description="Default Output of the Derived Column Transformation"
                   exclusionGroup="1"
                   name="Derived Column Output"
-                  synchronousInputId="Package\Insert_DimCompeticoes\Converter STR.Inputs[Derived Column Input]">
+                  synchronousInputId="Package\Transform\Converter STR.Inputs[Derived Column Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Converter STR.Outputs[Derived Column Output].Columns[Nome_Liga_STR]"
+                      refId="Package\Transform\Converter STR.Outputs[Derived Column Output].Columns[Nome_Liga_STR]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Computation"
                       errorRowDisposition="FailComponent"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Converter STR.Outputs[Derived Column Output].Columns[Nome_Liga_STR]"
+                      lineageId="Package\Transform\Converter STR.Outputs[Derived Column Output].Columns[Nome_Liga_STR]"
                       name="Nome_Liga_STR"
                       truncationRowDisposition="FailComponent">
                       <properties>
@@ -259,7 +276,7 @@
                           containsID="true"
                           dataType="System.String"
                           description="Derived Column Expression"
-                          name="Expression">(DT_STR,255,1252)#{Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].Columns[Nome_Liga]}</property>
+                          name="Expression">(DT_STR,255,1252)#{Package\Transform\Json_Clubes.Outputs[ODBC Source Output].Columns[Nome_Liga]}</property>
                         <property
                           containsID="true"
                           dataType="System.String"
@@ -269,13 +286,13 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Converter STR.Outputs[Derived Column Output].Columns[Clube_Pais_STR]"
+                      refId="Package\Transform\Converter STR.Outputs[Derived Column Output].Columns[Clube_Pais_STR]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Computation"
                       errorRowDisposition="FailComponent"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Converter STR.Outputs[Derived Column Output].Columns[Clube_Pais_STR]"
+                      lineageId="Package\Transform\Converter STR.Outputs[Derived Column Output].Columns[Clube_Pais_STR]"
                       name="Clube_Pais_STR"
                       truncationRowDisposition="FailComponent">
                       <properties>
@@ -283,7 +300,7 @@
                           containsID="true"
                           dataType="System.String"
                           description="Derived Column Expression"
-                          name="Expression">(DT_STR,255,1252)#{Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].Columns[Clube_Pais]}</property>
+                          name="Expression">(DT_STR,255,1252)#{Package\Transform\Json_Clubes.Outputs[ODBC Source Output].Columns[Clube_Pais]}</property>
                         <property
                           containsID="true"
                           dataType="System.String"
@@ -296,23 +313,23 @@
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\Insert_DimCompeticoes\Converter STR.Outputs[Derived Column Error Output]"
+                  refId="Package\Transform\Converter STR.Outputs[Derived Column Error Output]"
                   description="Error Output of the Derived Column Transformation"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Derived Column Error Output"
-                  synchronousInputId="Package\Insert_DimCompeticoes\Converter STR.Inputs[Derived Column Input]">
+                  synchronousInputId="Package\Transform\Converter STR.Inputs[Derived Column Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Converter STR.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      refId="Package\Transform\Converter STR.Outputs[Derived Column Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Insert_DimCompeticoes\Converter STR.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Transform\Converter STR.Outputs[Derived Column Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Converter STR.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      refId="Package\Transform\Converter STR.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Insert_DimCompeticoes\Converter STR.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Transform\Converter STR.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -321,7 +338,138 @@
               </outputs>
             </component>
             <component
-              refId="Package\Insert_DimCompeticoes\Dim_Pais"
+              refId="Package\Transform\DimCompeticoes"
+              componentClassID="Microsoft.SSISODBCDst"
+              contactInfo="ODBC Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="ODBC Destination"
+              name="DimCompeticoes"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The name of the table to be fetched."
+                  expressionType="Notify"
+                  name="TableName">DimCompeticoes</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows fetched per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows inserted under the same transaction."
+                  expressionType="Notify"
+                  name="TransactionSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for inserting data. Possible values are 'Batch' or 'Row by row'."
+                  expressionType="Notify"
+                  name="InsertMethod">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transform\DimCompeticoes.Connections[ODBCConnection]"
+                  connectionManagerID="{55184156-CD34-4453-9463-7F5EED9E93B8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[freesqldatabase.sql7738411]"
+                  description="The ODBC runtime connection used to access the database."
+                  name="ODBCConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Transform\DimCompeticoes.Inputs[ODBC Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ODBC Destination Input"
+                  truncationRowDisposition="FailComponent">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Transform\DimCompeticoes.Inputs[ODBC Destination Input].Columns[Nome_Liga_Regex]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Nome_Liga_Regex"
+                      externalMetadataColumnId="Package\Transform\DimCompeticoes.Inputs[ODBC Destination Input].ExternalColumns[Nome]"
+                      lineageId="Package\Transform\Juntar.Outputs[Merge Join Output].Columns[Nome_Liga_Regex]" />
+                    <inputColumn
+                      refId="Package\Transform\DimCompeticoes.Inputs[ODBC Destination Input].Columns[ID]"
+                      cachedDataType="i4"
+                      cachedName="ID"
+                      externalMetadataColumnId="Package\Transform\DimCompeticoes.Inputs[ODBC Destination Input].ExternalColumns[Pais_ID]"
+                      lineageId="Package\Transform\Juntar.Outputs[Merge Join Output].Columns[ID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Transform\DimCompeticoes.Inputs[ODBC Destination Input].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Transform\DimCompeticoes.Inputs[ODBC Destination Input].ExternalColumns[Nome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Nome" />
+                    <externalMetadataColumn
+                      refId="Package\Transform\DimCompeticoes.Inputs[ODBC Destination Input].ExternalColumns[Pais_ID]"
+                      dataType="i4"
+                      name="Pais_ID" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Transform\DimCompeticoes.Outputs[ODBC Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ODBC Destination Error Output"
+                  synchronousInputId="Package\Transform\DimCompeticoes.Inputs[ODBC Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transform\DimCompeticoes.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transform\DimCompeticoes.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transform\DimCompeticoes.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transform\DimCompeticoes.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Transform\Dim_Pais"
               componentClassID="Microsoft.SSISODBCSrc"
               contactInfo="ODBC Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
               description="ODBC Source"
@@ -389,7 +537,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\Insert_DimCompeticoes\Dim_Pais.Connections[ODBCConnection]"
+                  refId="Package\Transform\Dim_Pais.Connections[ODBCConnection]"
                   connectionManagerID="{55184156-CD34-4453-9463-7F5EED9E93B8}:external"
                   connectionManagerRefId="Project.ConnectionManagers[freesqldatabase.sql7738411]"
                   description="The ODBC runtime connection used to access the database."
@@ -397,34 +545,34 @@
               </connections>
               <outputs>
                 <output
-                  refId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output]"
+                  refId="Package\Transform\Dim_Pais.Outputs[ODBC Source Output]"
                   errorRowDisposition="FailComponent"
                   name="ODBC Source Output"
                   truncationRowDisposition="FailComponent">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output].Columns[ID]"
+                      refId="Package\Transform\Dim_Pais.Outputs[ODBC Source Output].Columns[ID]"
                       dataType="i4"
-                      externalMetadataColumnId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[ID]"
-                      lineageId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output].Columns[ID]"
+                      externalMetadataColumnId="Package\Transform\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[ID]"
+                      lineageId="Package\Transform\Dim_Pais.Outputs[ODBC Source Output].Columns[ID]"
                       name="ID" />
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]"
+                      refId="Package\Transform\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]"
                       codePage="1252"
                       dataType="str"
-                      externalMetadataColumnId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[Nome]"
+                      externalMetadataColumnId="Package\Transform\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[Nome]"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]"
+                      lineageId="Package\Transform\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]"
                       name="Nome" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[ID]"
+                      refId="Package\Transform\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[ID]"
                       dataType="i4"
                       name="ID" />
                     <externalMetadataColumn
-                      refId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[Nome]"
+                      refId="Package\Transform\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[Nome]"
                       codePage="1252"
                       dataType="str"
                       length="255"
@@ -432,34 +580,34 @@
                   </externalMetadataColumns>
                 </output>
                 <output
-                  refId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Error Output]"
+                  refId="Package\Transform\Dim_Pais.Outputs[ODBC Source Error Output]"
                   isErrorOut="true"
                   name="ODBC Source Error Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ID]"
+                      refId="Package\Transform\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ID]"
                       dataType="i4"
-                      externalMetadataColumnId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[ID]"
-                      lineageId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ID]"
+                      externalMetadataColumnId="Package\Transform\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[ID]"
+                      lineageId="Package\Transform\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ID]"
                       name="ID" />
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Error Output].Columns[Nome]"
+                      refId="Package\Transform\Dim_Pais.Outputs[ODBC Source Error Output].Columns[Nome]"
                       codePage="1252"
                       dataType="str"
-                      externalMetadataColumnId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[Nome]"
+                      externalMetadataColumnId="Package\Transform\Dim_Pais.Outputs[ODBC Source Output].ExternalColumns[Nome]"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Error Output].Columns[Nome]"
+                      lineageId="Package\Transform\Dim_Pais.Outputs[ODBC Source Error Output].Columns[Nome]"
                       name="Nome" />
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      refId="Package\Transform\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Transform\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      refId="Package\Transform\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Transform\Dim_Pais.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -468,7 +616,7 @@
               </outputs>
             </component>
             <component
-              refId="Package\Insert_DimCompeticoes\Json_Clubes"
+              refId="Package\Transform\Json_Clubes"
               componentClassID="Microsoft.SSISODBCSrc"
               contactInfo="ODBC Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
               description="ODBC Source"
@@ -536,7 +684,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\Insert_DimCompeticoes\Json_Clubes.Connections[ODBCConnection]"
+                  refId="Package\Transform\Json_Clubes.Connections[ODBCConnection]"
                   connectionManagerID="{55184156-CD34-4453-9463-7F5EED9E93B8}:external"
                   connectionManagerRefId="Project.ConnectionManagers[freesqldatabase.sql7738411]"
                   description="The ODBC runtime connection used to access the database."
@@ -544,66 +692,66 @@
               </connections>
               <outputs>
                 <output
-                  refId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output]"
+                  refId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output]"
                   errorRowDisposition="FailComponent"
                   name="ODBC Source Output"
                   truncationRowDisposition="FailComponent">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].Columns[Nome_Liga]"
+                      refId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].Columns[Nome_Liga]"
                       codePage="1252"
                       dataType="str"
-                      externalMetadataColumnId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Nome_Liga]"
+                      externalMetadataColumnId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Nome_Liga]"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].Columns[Nome_Liga]"
+                      lineageId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].Columns[Nome_Liga]"
                       name="Nome_Liga" />
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].Columns[Clube_Nome]"
+                      refId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].Columns[Clube_Nome]"
                       codePage="1252"
                       dataType="str"
-                      externalMetadataColumnId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Nome]"
+                      externalMetadataColumnId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Nome]"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].Columns[Clube_Nome]"
+                      lineageId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].Columns[Clube_Nome]"
                       name="Clube_Nome" />
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].Columns[Clube_Code]"
+                      refId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].Columns[Clube_Code]"
                       codePage="1252"
                       dataType="str"
-                      externalMetadataColumnId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Code]"
+                      externalMetadataColumnId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Code]"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].Columns[Clube_Code]"
+                      lineageId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].Columns[Clube_Code]"
                       name="Clube_Code" />
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].Columns[Clube_Pais]"
+                      refId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].Columns[Clube_Pais]"
                       codePage="1252"
                       dataType="str"
-                      externalMetadataColumnId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Pais]"
+                      externalMetadataColumnId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Pais]"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].Columns[Clube_Pais]"
+                      lineageId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].Columns[Clube_Pais]"
                       name="Clube_Pais" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Nome_Liga]"
+                      refId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Nome_Liga]"
                       codePage="1252"
                       dataType="str"
                       length="255"
                       name="Nome_Liga" />
                     <externalMetadataColumn
-                      refId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Nome]"
+                      refId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Nome]"
                       codePage="1252"
                       dataType="str"
                       length="255"
                       name="Clube_Nome" />
                     <externalMetadataColumn
-                      refId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Code]"
+                      refId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Code]"
                       codePage="1252"
                       dataType="str"
                       length="255"
                       name="Clube_Code" />
                     <externalMetadataColumn
-                      refId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Pais]"
+                      refId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Pais]"
                       codePage="1252"
                       dataType="str"
                       length="255"
@@ -611,52 +759,52 @@
                   </externalMetadataColumns>
                 </output>
                 <output
-                  refId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Error Output]"
+                  refId="Package\Transform\Json_Clubes.Outputs[ODBC Source Error Output]"
                   isErrorOut="true"
                   name="ODBC Source Error Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Error Output].Columns[Nome_Liga]"
+                      refId="Package\Transform\Json_Clubes.Outputs[ODBC Source Error Output].Columns[Nome_Liga]"
                       codePage="1252"
                       dataType="str"
-                      externalMetadataColumnId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Nome_Liga]"
+                      externalMetadataColumnId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Nome_Liga]"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Error Output].Columns[Nome_Liga]"
+                      lineageId="Package\Transform\Json_Clubes.Outputs[ODBC Source Error Output].Columns[Nome_Liga]"
                       name="Nome_Liga" />
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Error Output].Columns[Clube_Nome]"
+                      refId="Package\Transform\Json_Clubes.Outputs[ODBC Source Error Output].Columns[Clube_Nome]"
                       codePage="1252"
                       dataType="str"
-                      externalMetadataColumnId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Nome]"
+                      externalMetadataColumnId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Nome]"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Error Output].Columns[Clube_Nome]"
+                      lineageId="Package\Transform\Json_Clubes.Outputs[ODBC Source Error Output].Columns[Clube_Nome]"
                       name="Clube_Nome" />
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Error Output].Columns[Clube_Code]"
+                      refId="Package\Transform\Json_Clubes.Outputs[ODBC Source Error Output].Columns[Clube_Code]"
                       codePage="1252"
                       dataType="str"
-                      externalMetadataColumnId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Code]"
+                      externalMetadataColumnId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Code]"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Error Output].Columns[Clube_Code]"
+                      lineageId="Package\Transform\Json_Clubes.Outputs[ODBC Source Error Output].Columns[Clube_Code]"
                       name="Clube_Code" />
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Error Output].Columns[Clube_Pais]"
+                      refId="Package\Transform\Json_Clubes.Outputs[ODBC Source Error Output].Columns[Clube_Pais]"
                       codePage="1252"
                       dataType="str"
-                      externalMetadataColumnId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Pais]"
+                      externalMetadataColumnId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output].ExternalColumns[Clube_Pais]"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Error Output].Columns[Clube_Pais]"
+                      lineageId="Package\Transform\Json_Clubes.Outputs[ODBC Source Error Output].Columns[Clube_Pais]"
                       name="Clube_Pais" />
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      refId="Package\Transform\Json_Clubes.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Transform\Json_Clubes.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      refId="Package\Transform\Json_Clubes.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Transform\Json_Clubes.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -665,7 +813,7 @@
               </outputs>
             </component>
             <component
-              refId="Package\Insert_DimCompeticoes\Juntar"
+              refId="Package\Transform\Juntar"
               componentClassID="Microsoft.MergeJoin"
               contactInfo="Merge Join;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
               description="Combine two sorted data flows into one using the FULL, LEFT, or INNER join. We recommend this transformation when data flows can be sorted at their sources."
@@ -692,81 +840,81 @@
               </properties>
               <inputs>
                 <input
-                  refId="Package\Insert_DimCompeticoes\Juntar.Inputs[Merge Join Left Input]"
+                  refId="Package\Transform\Juntar.Inputs[Merge Join Left Input]"
                   hasSideEffects="true"
                   name="Merge Join Left Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\Juntar.Inputs[Merge Join Left Input].Columns[Clube_Pais_STR]"
+                      refId="Package\Transform\Juntar.Inputs[Merge Join Left Input].Columns[Clube_Pais_STR]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Clube_Pais_STR"
                       cachedSortKeyPosition="1"
-                      lineageId="Package\Insert_DimCompeticoes\Ordernar País 1.Outputs[Sort Output].Columns[Clube_Pais_STR]" />
+                      lineageId="Package\Transform\Ordernar País 1.Outputs[Sort Output].Columns[Clube_Pais_STR]" />
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\Juntar.Inputs[Merge Join Left Input].Columns[Nome_Liga_Regex]"
+                      refId="Package\Transform\Juntar.Inputs[Merge Join Left Input].Columns[Nome_Liga_Regex]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
                       cachedName="Nome_Liga_Regex"
-                      lineageId="Package\Insert_DimCompeticoes\Ordernar País 1.Outputs[Sort Output].Columns[Nome_Liga_Regex]" />
+                      lineageId="Package\Transform\Ordernar País 1.Outputs[Sort Output].Columns[Nome_Liga_Regex]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
                 <input
-                  refId="Package\Insert_DimCompeticoes\Juntar.Inputs[Merge Join Right Input]"
+                  refId="Package\Transform\Juntar.Inputs[Merge Join Right Input]"
                   hasSideEffects="true"
                   name="Merge Join Right Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\Juntar.Inputs[Merge Join Right Input].Columns[Nome_STR]"
+                      refId="Package\Transform\Juntar.Inputs[Merge Join Right Input].Columns[Nome_STR]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Nome_STR"
                       cachedSortKeyPosition="1"
-                      lineageId="Package\Insert_DimCompeticoes\Ordernar País 2.Outputs[Sort Output].Columns[Nome_STR]" />
+                      lineageId="Package\Transform\Ordernar País 2.Outputs[Sort Output].Columns[Nome_STR]" />
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\Juntar.Inputs[Merge Join Right Input].Columns[ID]"
+                      refId="Package\Transform\Juntar.Inputs[Merge Join Right Input].Columns[ID]"
                       cachedDataType="i4"
                       cachedName="ID"
-                      lineageId="Package\Insert_DimCompeticoes\Ordernar País 2.Outputs[Sort Output].Columns[ID]" />
+                      lineageId="Package\Transform\Ordernar País 2.Outputs[Sort Output].Columns[ID]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Insert_DimCompeticoes\Juntar.Outputs[Merge Join Output]"
+                  refId="Package\Transform\Juntar.Outputs[Merge Join Output]"
                   name="Merge Join Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Juntar.Outputs[Merge Join Output].Columns[Nome_Liga_Regex]"
+                      refId="Package\Transform\Juntar.Outputs[Merge Join Output].Columns[Nome_Liga_Regex]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Insert_DimCompeticoes\Juntar.Outputs[Merge Join Output].Columns[Nome_Liga_Regex]"
+                      lineageId="Package\Transform\Juntar.Outputs[Merge Join Output].Columns[Nome_Liga_Regex]"
                       name="Nome_Liga_Regex">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.Int32"
                           description="The input column associated with this output column"
-                          name="InputColumnID">#{Package\Insert_DimCompeticoes\Juntar.Inputs[Merge Join Left Input].Columns[Nome_Liga_Regex]}</property>
+                          name="InputColumnID">#{Package\Transform\Juntar.Inputs[Merge Join Left Input].Columns[Nome_Liga_Regex]}</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Juntar.Outputs[Merge Join Output].Columns[ID]"
+                      refId="Package\Transform\Juntar.Outputs[Merge Join Output].Columns[ID]"
                       dataType="i4"
-                      lineageId="Package\Insert_DimCompeticoes\Juntar.Outputs[Merge Join Output].Columns[ID]"
+                      lineageId="Package\Transform\Juntar.Outputs[Merge Join Output].Columns[ID]"
                       name="ID">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.Int32"
                           description="The input column associated with this output column"
-                          name="InputColumnID">#{Package\Insert_DimCompeticoes\Juntar.Inputs[Merge Join Right Input].Columns[ID]}</property>
+                          name="InputColumnID">#{Package\Transform\Juntar.Inputs[Merge Join Right Input].Columns[ID]}</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -775,138 +923,7 @@
               </outputs>
             </component>
             <component
-              refId="Package\Insert_DimCompeticoes\ODBC Destination"
-              componentClassID="Microsoft.SSISODBCDst"
-              contactInfo="ODBC Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
-              description="ODBC Destination"
-              name="ODBC Destination"
-              usesDispositions="true"
-              version="1">
-              <properties>
-                <property
-                  dataType="System.String"
-                  description="The name of the table to be fetched."
-                  expressionType="Notify"
-                  name="TableName">DimCompeticoes</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specify the number of rows fetched per batch."
-                  expressionType="Notify"
-                  name="BatchSize">1000</property>
-                <property
-                  dataType="System.Int32"
-                  description="The number of rows inserted under the same transaction."
-                  expressionType="Notify"
-                  name="TransactionSize">1000</property>
-                <property
-                  dataType="System.Int32"
-                  description="Determines the chunk size allocation for LOB columns"
-                  expressionType="Notify"
-                  name="LobChunkSize">32768</property>
-                <property
-                  dataType="System.Int32"
-                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
-                  expressionType="Notify"
-                  name="StatementTimeout">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="The code page to use when code page information is unavailable from the data source."
-                  expressionType="Notify"
-                  name="DefaultCodePage">1252</property>
-                <property
-                  dataType="System.Int32"
-                  description="The method used for inserting data. Possible values are 'Batch' or 'Row by row'."
-                  expressionType="Notify"
-                  name="InsertMethod">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="The ODBC C data type for binding numeric data."
-                  expressionType="Notify"
-                  name="BindNumericAs">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
-                  expressionType="Notify"
-                  name="BindCharColumnsAs">0</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\Insert_DimCompeticoes\ODBC Destination.Connections[ODBCConnection]"
-                  connectionManagerID="{55184156-CD34-4453-9463-7F5EED9E93B8}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[freesqldatabase.sql7738411]"
-                  description="The ODBC runtime connection used to access the database."
-                  name="ODBCConnection" />
-              </connections>
-              <inputs>
-                <input
-                  refId="Package\Insert_DimCompeticoes\ODBC Destination.Inputs[ODBC Destination Input]"
-                  errorOrTruncationOperation="Insert"
-                  errorRowDisposition="FailComponent"
-                  hasSideEffects="true"
-                  name="ODBC Destination Input"
-                  truncationRowDisposition="FailComponent">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\Insert_DimCompeticoes\ODBC Destination.Inputs[ODBC Destination Input].Columns[Nome_Liga_Regex]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Nome_Liga_Regex"
-                      externalMetadataColumnId="Package\Insert_DimCompeticoes\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Nome]"
-                      lineageId="Package\Insert_DimCompeticoes\Juntar.Outputs[Merge Join Output].Columns[Nome_Liga_Regex]" />
-                    <inputColumn
-                      refId="Package\Insert_DimCompeticoes\ODBC Destination.Inputs[ODBC Destination Input].Columns[ID]"
-                      cachedDataType="i4"
-                      cachedName="ID"
-                      externalMetadataColumnId="Package\Insert_DimCompeticoes\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Pais_ID]"
-                      lineageId="Package\Insert_DimCompeticoes\Juntar.Outputs[Merge Join Output].Columns[ID]" />
-                  </inputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\Insert_DimCompeticoes\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[ID]"
-                      dataType="i4"
-                      name="ID" />
-                    <externalMetadataColumn
-                      refId="Package\Insert_DimCompeticoes\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Nome]"
-                      codePage="1252"
-                      dataType="str"
-                      length="255"
-                      name="Nome" />
-                    <externalMetadataColumn
-                      refId="Package\Insert_DimCompeticoes\ODBC Destination.Inputs[ODBC Destination Input].ExternalColumns[Pais_ID]"
-                      dataType="i4"
-                      name="Pais_ID" />
-                  </externalMetadataColumns>
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\Insert_DimCompeticoes\ODBC Destination.Outputs[ODBC Destination Error Output]"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="ODBC Destination Error Output"
-                  synchronousInputId="Package\Insert_DimCompeticoes\ODBC Destination.Inputs[ODBC Destination Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Insert_DimCompeticoes\ODBC Destination.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\Insert_DimCompeticoes\ODBC Destination.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\Insert_DimCompeticoes\ODBC Destination.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\Insert_DimCompeticoes\ODBC Destination.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\Insert_DimCompeticoes\Ordernar País 1"
+              refId="Package\Transform\Ordernar País 1"
               componentClassID="Microsoft.Sort"
               contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
               description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
@@ -925,17 +942,17 @@
               </properties>
               <inputs>
                 <input
-                  refId="Package\Insert_DimCompeticoes\Ordernar País 1.Inputs[Sort Input]"
+                  refId="Package\Transform\Ordernar País 1.Inputs[Sort Input]"
                   name="Sort Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\Ordernar País 1.Inputs[Sort Input].Columns[Nome_Liga_STR]"
+                      refId="Package\Transform\Ordernar País 1.Inputs[Sort Input].Columns[Nome_Liga_STR]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Nome_Liga_STR"
                       cachedSortKeyPosition="1"
-                      lineageId="Package\Insert_DimCompeticoes\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Nome_Liga_STR]">
+                      lineageId="Package\Transform\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Nome_Liga_STR]">
                       <properties>
                         <property
                           dataType="System.Int32"
@@ -948,12 +965,12 @@
                       </properties>
                     </inputColumn>
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\Ordernar País 1.Inputs[Sort Input].Columns[Clube_Pais_STR]"
+                      refId="Package\Transform\Ordernar País 1.Inputs[Sort Input].Columns[Clube_Pais_STR]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Clube_Pais_STR"
-                      lineageId="Package\Insert_DimCompeticoes\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Clube_Pais_STR]">
+                      lineageId="Package\Transform\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Clube_Pais_STR]">
                       <properties>
                         <property
                           dataType="System.Int32"
@@ -966,12 +983,12 @@
                       </properties>
                     </inputColumn>
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\Ordernar País 1.Inputs[Sort Input].Columns[Nome_Liga_Regex]"
+                      refId="Package\Transform\Ordernar País 1.Inputs[Sort Input].Columns[Nome_Liga_Regex]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
                       cachedName="Nome_Liga_Regex"
-                      lineageId="Package\Insert_DimCompeticoes\REGEX.Outputs[Saída 0].Columns[Nome_Liga_Regex]">
+                      lineageId="Package\Transform\REGEX.Outputs[Saída 0].Columns[Nome_Liga_Regex]">
                       <properties>
                         <property
                           dataType="System.Int32"
@@ -989,31 +1006,31 @@
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Insert_DimCompeticoes\Ordernar País 1.Outputs[Sort Output]"
+                  refId="Package\Transform\Ordernar País 1.Outputs[Sort Output]"
                   isSorted="true"
                   name="Sort Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Ordernar País 1.Outputs[Sort Output].Columns[Nome_Liga_STR]"
+                      refId="Package\Transform\Ordernar País 1.Outputs[Sort Output].Columns[Nome_Liga_STR]"
                       codePage="1252"
                       dataType="str"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Ordernar País 1.Outputs[Sort Output].Columns[Nome_Liga_STR]"
+                      lineageId="Package\Transform\Ordernar País 1.Outputs[Sort Output].Columns[Nome_Liga_STR]"
                       name="Nome_Liga_STR">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
-                          name="SortColumnId">#{Package\Insert_DimCompeticoes\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Nome_Liga_STR]}</property>
+                          name="SortColumnId">#{Package\Transform\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Nome_Liga_STR]}</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Ordernar País 1.Outputs[Sort Output].Columns[Clube_Pais_STR]"
+                      refId="Package\Transform\Ordernar País 1.Outputs[Sort Output].Columns[Clube_Pais_STR]"
                       codePage="1252"
                       dataType="str"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Ordernar País 1.Outputs[Sort Output].Columns[Clube_Pais_STR]"
+                      lineageId="Package\Transform\Ordernar País 1.Outputs[Sort Output].Columns[Clube_Pais_STR]"
                       name="Clube_Pais_STR"
                       sortKeyPosition="1">
                       <properties>
@@ -1021,22 +1038,22 @@
                           containsID="true"
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
-                          name="SortColumnId">#{Package\Insert_DimCompeticoes\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Clube_Pais_STR]}</property>
+                          name="SortColumnId">#{Package\Transform\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Clube_Pais_STR]}</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Ordernar País 1.Outputs[Sort Output].Columns[Nome_Liga_Regex]"
+                      refId="Package\Transform\Ordernar País 1.Outputs[Sort Output].Columns[Nome_Liga_Regex]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Insert_DimCompeticoes\Ordernar País 1.Outputs[Sort Output].Columns[Nome_Liga_Regex]"
+                      lineageId="Package\Transform\Ordernar País 1.Outputs[Sort Output].Columns[Nome_Liga_Regex]"
                       name="Nome_Liga_Regex">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
-                          name="SortColumnId">#{Package\Insert_DimCompeticoes\REGEX.Outputs[Saída 0].Columns[Nome_Liga_Regex]}</property>
+                          name="SortColumnId">#{Package\Transform\REGEX.Outputs[Saída 0].Columns[Nome_Liga_Regex]}</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -1045,7 +1062,7 @@
               </outputs>
             </component>
             <component
-              refId="Package\Insert_DimCompeticoes\Ordernar País 2"
+              refId="Package\Transform\Ordernar País 2"
               componentClassID="Microsoft.Sort"
               contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
               description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
@@ -1064,14 +1081,14 @@
               </properties>
               <inputs>
                 <input
-                  refId="Package\Insert_DimCompeticoes\Ordernar País 2.Inputs[Sort Input]"
+                  refId="Package\Transform\Ordernar País 2.Inputs[Sort Input]"
                   name="Sort Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\Ordernar País 2.Inputs[Sort Input].Columns[ID]"
+                      refId="Package\Transform\Ordernar País 2.Inputs[Sort Input].Columns[ID]"
                       cachedDataType="i4"
                       cachedName="ID"
-                      lineageId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output].Columns[ID]">
+                      lineageId="Package\Transform\Dim_Pais.Outputs[ODBC Source Output].Columns[ID]">
                       <properties>
                         <property
                           dataType="System.Int32"
@@ -1084,12 +1101,12 @@
                       </properties>
                     </inputColumn>
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\Ordernar País 2.Inputs[Sort Input].Columns[Nome]"
+                      refId="Package\Transform\Ordernar País 2.Inputs[Sort Input].Columns[Nome]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Nome"
-                      lineageId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]">
+                      lineageId="Package\Transform\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]">
                       <properties>
                         <property
                           dataType="System.Int32"
@@ -1102,12 +1119,12 @@
                       </properties>
                     </inputColumn>
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\Ordernar País 2.Inputs[Sort Input].Columns[Nome_STR]"
+                      refId="Package\Transform\Ordernar País 2.Inputs[Sort Input].Columns[Nome_STR]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Nome_STR"
-                      lineageId="Package\Insert_DimCompeticoes\Converter.Outputs[Derived Column Output].Columns[Nome_STR]">
+                      lineageId="Package\Transform\Converter.Outputs[Derived Column Output].Columns[Nome_STR]">
                       <properties>
                         <property
                           dataType="System.Int32"
@@ -1125,44 +1142,44 @@
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Insert_DimCompeticoes\Ordernar País 2.Outputs[Sort Output]"
+                  refId="Package\Transform\Ordernar País 2.Outputs[Sort Output]"
                   isSorted="true"
                   name="Sort Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Ordernar País 2.Outputs[Sort Output].Columns[ID]"
+                      refId="Package\Transform\Ordernar País 2.Outputs[Sort Output].Columns[ID]"
                       dataType="i4"
-                      lineageId="Package\Insert_DimCompeticoes\Ordernar País 2.Outputs[Sort Output].Columns[ID]"
+                      lineageId="Package\Transform\Ordernar País 2.Outputs[Sort Output].Columns[ID]"
                       name="ID">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
-                          name="SortColumnId">#{Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output].Columns[ID]}</property>
+                          name="SortColumnId">#{Package\Transform\Dim_Pais.Outputs[ODBC Source Output].Columns[ID]}</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Ordernar País 2.Outputs[Sort Output].Columns[Nome]"
+                      refId="Package\Transform\Ordernar País 2.Outputs[Sort Output].Columns[Nome]"
                       codePage="1252"
                       dataType="str"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Ordernar País 2.Outputs[Sort Output].Columns[Nome]"
+                      lineageId="Package\Transform\Ordernar País 2.Outputs[Sort Output].Columns[Nome]"
                       name="Nome">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
-                          name="SortColumnId">#{Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]}</property>
+                          name="SortColumnId">#{Package\Transform\Dim_Pais.Outputs[ODBC Source Output].Columns[Nome]}</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Ordernar País 2.Outputs[Sort Output].Columns[Nome_STR]"
+                      refId="Package\Transform\Ordernar País 2.Outputs[Sort Output].Columns[Nome_STR]"
                       codePage="1252"
                       dataType="str"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Ordernar País 2.Outputs[Sort Output].Columns[Nome_STR]"
+                      lineageId="Package\Transform\Ordernar País 2.Outputs[Sort Output].Columns[Nome_STR]"
                       name="Nome_STR"
                       sortKeyPosition="1">
                       <properties>
@@ -1170,7 +1187,7 @@
                           containsID="true"
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
-                          name="SortColumnId">#{Package\Insert_DimCompeticoes\Converter.Outputs[Derived Column Output].Columns[Nome_STR]}</property>
+                          name="SortColumnId">#{Package\Transform\Converter.Outputs[Derived Column Output].Columns[Nome_STR]}</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -1179,7 +1196,7 @@
               </outputs>
             </component>
             <component
-              refId="Package\Insert_DimCompeticoes\REGEX"
+              refId="Package\Transform\REGEX"
               componentClassID="Microsoft.ManagedComponentHost"
               contactInfo="Inclui e executa código de script personalizado. Por exemplo, aplique uma regra de negócio que limite um intervalo de valores válidos em uma coluna &quot;de entrada&quot; ou adicione valores em duas colunas e calcule a média da soma.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;13"
               description="Inclui e executa código de script personalizado. Por exemplo, aplique uma regra de negócio que limite um intervalo de valores válidos em uma coluna &quot;de entrada&quot; ou adicione valores em duas colunas e calcule a média da soma."
@@ -2053,34 +2070,34 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
               </properties>
               <inputs>
                 <input
-                  refId="Package\Insert_DimCompeticoes\REGEX.Inputs[Entrada 0]"
+                  refId="Package\Transform\REGEX.Inputs[Entrada 0]"
                   hasSideEffects="true"
                   name="Entrada 0">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\REGEX.Inputs[Entrada 0].Columns[Nome_Liga_STR]"
+                      refId="Package\Transform\REGEX.Inputs[Entrada 0].Columns[Nome_Liga_STR]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Nome_Liga_STR"
                       cachedSortKeyPosition="1"
-                      lineageId="Package\Insert_DimCompeticoes\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Nome_Liga_STR]" />
+                      lineageId="Package\Transform\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Nome_Liga_STR]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Insert_DimCompeticoes\REGEX.Outputs[Saída 0]"
+                  refId="Package\Transform\REGEX.Outputs[Saída 0]"
                   name="Saída 0"
-                  synchronousInputId="Package\Insert_DimCompeticoes\REGEX.Inputs[Entrada 0]">
+                  synchronousInputId="Package\Transform\REGEX.Inputs[Entrada 0]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\REGEX.Outputs[Saída 0].Columns[Nome_Liga_Regex]"
+                      refId="Package\Transform\REGEX.Outputs[Saída 0].Columns[Nome_Liga_Regex]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Insert_DimCompeticoes\REGEX.Outputs[Saída 0].Columns[Nome_Liga_Regex]"
+                      lineageId="Package\Transform\REGEX.Outputs[Saída 0].Columns[Nome_Liga_Regex]"
                       name="Nome_Liga_Regex" />
                   </outputColumns>
                   <externalMetadataColumns />
@@ -2088,7 +2105,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
               </outputs>
             </component>
             <component
-              refId="Package\Insert_DimCompeticoes\Remover Nomes Repetidos"
+              refId="Package\Transform\Remover Nomes Repetidos"
               componentClassID="Microsoft.Sort"
               contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
               description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
@@ -2107,16 +2124,16 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
               </properties>
               <inputs>
                 <input
-                  refId="Package\Insert_DimCompeticoes\Remover Nomes Repetidos.Inputs[Sort Input]"
+                  refId="Package\Transform\Remover Nomes Repetidos.Inputs[Sort Input]"
                   name="Sort Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\Remover Nomes Repetidos.Inputs[Sort Input].Columns[Nome_Liga_STR]"
+                      refId="Package\Transform\Remover Nomes Repetidos.Inputs[Sort Input].Columns[Nome_Liga_STR]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Nome_Liga_STR"
-                      lineageId="Package\Insert_DimCompeticoes\Converter STR.Outputs[Derived Column Output].Columns[Nome_Liga_STR]">
+                      lineageId="Package\Transform\Converter STR.Outputs[Derived Column Output].Columns[Nome_Liga_STR]">
                       <properties>
                         <property
                           dataType="System.Int32"
@@ -2129,12 +2146,12 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
                       </properties>
                     </inputColumn>
                     <inputColumn
-                      refId="Package\Insert_DimCompeticoes\Remover Nomes Repetidos.Inputs[Sort Input].Columns[Clube_Pais_STR]"
+                      refId="Package\Transform\Remover Nomes Repetidos.Inputs[Sort Input].Columns[Clube_Pais_STR]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="255"
                       cachedName="Clube_Pais_STR"
-                      lineageId="Package\Insert_DimCompeticoes\Converter STR.Outputs[Derived Column Output].Columns[Clube_Pais_STR]">
+                      lineageId="Package\Transform\Converter STR.Outputs[Derived Column Output].Columns[Clube_Pais_STR]">
                       <properties>
                         <property
                           dataType="System.Int32"
@@ -2152,16 +2169,16 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Insert_DimCompeticoes\Remover Nomes Repetidos.Outputs[Sort Output]"
+                  refId="Package\Transform\Remover Nomes Repetidos.Outputs[Sort Output]"
                   isSorted="true"
                   name="Sort Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Nome_Liga_STR]"
+                      refId="Package\Transform\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Nome_Liga_STR]"
                       codePage="1252"
                       dataType="str"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Nome_Liga_STR]"
+                      lineageId="Package\Transform\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Nome_Liga_STR]"
                       name="Nome_Liga_STR"
                       sortKeyPosition="1">
                       <properties>
@@ -2169,22 +2186,22 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
                           containsID="true"
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
-                          name="SortColumnId">#{Package\Insert_DimCompeticoes\Converter STR.Outputs[Derived Column Output].Columns[Nome_Liga_STR]}</property>
+                          name="SortColumnId">#{Package\Transform\Converter STR.Outputs[Derived Column Output].Columns[Nome_Liga_STR]}</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Insert_DimCompeticoes\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Clube_Pais_STR]"
+                      refId="Package\Transform\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Clube_Pais_STR]"
                       codePage="1252"
                       dataType="str"
                       length="255"
-                      lineageId="Package\Insert_DimCompeticoes\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Clube_Pais_STR]"
+                      lineageId="Package\Transform\Remover Nomes Repetidos.Outputs[Sort Output].Columns[Clube_Pais_STR]"
                       name="Clube_Pais_STR">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
-                          name="SortColumnId">#{Package\Insert_DimCompeticoes\Converter STR.Outputs[Derived Column Output].Columns[Clube_Pais_STR]}</property>
+                          name="SortColumnId">#{Package\Transform\Converter STR.Outputs[Derived Column Output].Columns[Clube_Pais_STR]}</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -2195,74 +2212,57 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
           </components>
           <paths>
             <path
-              refId="Package\Insert_DimCompeticoes.Paths[Case 1]"
-              endId="Package\Insert_DimCompeticoes\Converter STR.Inputs[Derived Column Input]"
+              refId="Package\Transform.Paths[Case 1]"
+              endId="Package\Transform\Converter STR.Inputs[Derived Column Input]"
               name="Case 1"
-              startId="Package\Insert_DimCompeticoes\Caso.Outputs[Case 1]" />
+              startId="Package\Transform\Caso.Outputs[Case 1]" />
             <path
-              refId="Package\Insert_DimCompeticoes.Paths[Derived Column Output]"
-              endId="Package\Insert_DimCompeticoes\Remover Nomes Repetidos.Inputs[Sort Input]"
+              refId="Package\Transform.Paths[Derived Column Output]"
+              endId="Package\Transform\Remover Nomes Repetidos.Inputs[Sort Input]"
               name="Derived Column Output"
-              startId="Package\Insert_DimCompeticoes\Converter STR.Outputs[Derived Column Output]" />
+              startId="Package\Transform\Converter STR.Outputs[Derived Column Output]" />
             <path
-              refId="Package\Insert_DimCompeticoes.Paths[Derived Column Output1]"
-              endId="Package\Insert_DimCompeticoes\Ordernar País 2.Inputs[Sort Input]"
+              refId="Package\Transform.Paths[Derived Column Output1]"
+              endId="Package\Transform\Ordernar País 2.Inputs[Sort Input]"
               name="Derived Column Output"
-              startId="Package\Insert_DimCompeticoes\Converter.Outputs[Derived Column Output]" />
+              startId="Package\Transform\Converter.Outputs[Derived Column Output]" />
             <path
-              refId="Package\Insert_DimCompeticoes.Paths[Merge Join Output]"
-              endId="Package\Insert_DimCompeticoes\ODBC Destination.Inputs[ODBC Destination Input]"
+              refId="Package\Transform.Paths[Merge Join Output]"
+              endId="Package\Transform\DimCompeticoes.Inputs[ODBC Destination Input]"
               name="Merge Join Output"
-              startId="Package\Insert_DimCompeticoes\Juntar.Outputs[Merge Join Output]" />
+              startId="Package\Transform\Juntar.Outputs[Merge Join Output]" />
             <path
-              refId="Package\Insert_DimCompeticoes.Paths[ODBC Source Output]"
-              endId="Package\Insert_DimCompeticoes\Caso.Inputs[Conditional Split Input]"
+              refId="Package\Transform.Paths[ODBC Source Output]"
+              endId="Package\Transform\Caso.Inputs[Conditional Split Input]"
               name="ODBC Source Output"
-              startId="Package\Insert_DimCompeticoes\Json_Clubes.Outputs[ODBC Source Output]" />
+              startId="Package\Transform\Json_Clubes.Outputs[ODBC Source Output]" />
             <path
-              refId="Package\Insert_DimCompeticoes.Paths[ODBC Source Output1]"
-              endId="Package\Insert_DimCompeticoes\Converter.Inputs[Derived Column Input]"
+              refId="Package\Transform.Paths[ODBC Source Output1]"
+              endId="Package\Transform\Converter.Inputs[Derived Column Input]"
               name="ODBC Source Output"
-              startId="Package\Insert_DimCompeticoes\Dim_Pais.Outputs[ODBC Source Output]" />
+              startId="Package\Transform\Dim_Pais.Outputs[ODBC Source Output]" />
             <path
-              refId="Package\Insert_DimCompeticoes.Paths[Saída 0]"
-              endId="Package\Insert_DimCompeticoes\Ordernar País 1.Inputs[Sort Input]"
+              refId="Package\Transform.Paths[Saída 0]"
+              endId="Package\Transform\Ordernar País 1.Inputs[Sort Input]"
               name="Saída 0"
-              startId="Package\Insert_DimCompeticoes\REGEX.Outputs[Saída 0]" />
+              startId="Package\Transform\REGEX.Outputs[Saída 0]" />
             <path
-              refId="Package\Insert_DimCompeticoes.Paths[Sort Output]"
-              endId="Package\Insert_DimCompeticoes\REGEX.Inputs[Entrada 0]"
+              refId="Package\Transform.Paths[Sort Output]"
+              endId="Package\Transform\REGEX.Inputs[Entrada 0]"
               name="Sort Output"
-              startId="Package\Insert_DimCompeticoes\Remover Nomes Repetidos.Outputs[Sort Output]" />
+              startId="Package\Transform\Remover Nomes Repetidos.Outputs[Sort Output]" />
             <path
-              refId="Package\Insert_DimCompeticoes.Paths[Sort Output1]"
-              endId="Package\Insert_DimCompeticoes\Juntar.Inputs[Merge Join Left Input]"
+              refId="Package\Transform.Paths[Sort Output1]"
+              endId="Package\Transform\Juntar.Inputs[Merge Join Left Input]"
               name="Sort Output"
-              startId="Package\Insert_DimCompeticoes\Ordernar País 1.Outputs[Sort Output]" />
+              startId="Package\Transform\Ordernar País 1.Outputs[Sort Output]" />
             <path
-              refId="Package\Insert_DimCompeticoes.Paths[Sort Output2]"
-              endId="Package\Insert_DimCompeticoes\Juntar.Inputs[Merge Join Right Input]"
+              refId="Package\Transform.Paths[Sort Output2]"
+              endId="Package\Transform\Juntar.Inputs[Merge Join Right Input]"
               name="Sort Output"
-              startId="Package\Insert_DimCompeticoes\Ordernar País 2.Outputs[Sort Output]" />
+              startId="Package\Transform\Ordernar País 2.Outputs[Sort Output]" />
           </paths>
         </pipeline>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable
-      DTS:refId="Package\Truncate_DimCompeticoes"
-      DTS:CreationName="Microsoft.ExecuteSQLTask"
-      DTS:Description="Tarefa Executar SQL"
-      DTS:DTSID="{7FD4D981-148C-4A54-89E6-B8EF561F6F4F}"
-      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="Truncate_DimCompeticoes"
-      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="0">
-      <DTS:Variables />
-      <DTS:ObjectData>
-        <SQLTask:SqlTaskData
-          SQLTask:Connection="{55184156-CD34-4453-9463-7F5EED9E93B8}"
-          SQLTask:SqlStatementSource="Truncate Table DimCompeticoes;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
@@ -2271,10 +2271,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
       DTS:refId="Package.PrecedenceConstraints[Restrição]"
       DTS:CreationName=""
       DTS:DTSID="{F5B6D286-9160-4BD8-BD24-3822D78DE20E}"
-      DTS:From="Package\Truncate_DimCompeticoes"
+      DTS:From="Package\Job"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Restrição"
-      DTS:To="Package\Insert_DimCompeticoes" />
+      DTS:To="Package\Transform" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--Esta seção CDATA contém as informações de layout do pacote. A seção inclui informações como coordenadas (x,y), largura e altura.-->
@@ -2290,38 +2290,26 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="154,42"
-          Id="Package\Insert_DimCompeticoes"
-          TopLeft="276.5,33.5" />
+          Id="Package\Transform"
+          TopLeft="320.5,34.5" />
         <NodeLayout
           Size="212,42"
-          Id="Package\Truncate_DimCompeticoes"
+          Id="Package\Job"
           TopLeft="53,35" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restrição]"
-          TopLeft="159,77">
+          TopLeft="265,55.75">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="194.5,-1.5"
+              EndConnector="55.5,0"
               Start="0,0"
-              End="194.5,6">
+              End="48,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,18.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,18.5"
-                    Point2="0,22.5"
-                    Point3="4,22.5" />
-                  <mssgle:LineSegment
-                    End="190.5,22.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="190.5,22.5"
-                    Point2="194.5,22.5"
-                    Point3="194.5,18.5" />
-                  <mssgle:LineSegment
-                    End="194.5,6" />
+                    End="48,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2334,78 +2322,56 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
     </LayoutInfo>
   </Package>
   <TaskHost
-    design-time-name="Package\Insert_DimCompeticoes">
+    design-time-name="Package\Transform">
     <LayoutInfo>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="127,42"
-          Id="Package\Insert_DimCompeticoes\Converter"
-          TopLeft="924,104" />
-        <NodeLayout
-          Size="211,42"
-          Id="Package\Insert_DimCompeticoes\Remover Nomes Repetidos"
-          TopLeft="235,135" />
-        <NodeLayout
-          Size="173,42"
-          Id="Package\Insert_DimCompeticoes\REGEX"
-          TopLeft="256.5,248.5" />
-        <NodeLayout
           Size="156,42"
-          Id="Package\Insert_DimCompeticoes\Ordernar País 2"
+          Id="Package\Transform\Ordernar País 2"
           TopLeft="914,233" />
         <NodeLayout
-          Size="224,42"
-          Id="Package\Insert_DimCompeticoes\Converter STR"
-          TopLeft="610,130" />
+          Size="127,42"
+          Id="Package\Transform\Converter"
+          TopLeft="924,104" />
+        <NodeLayout
+          Size="169,42"
+          Id="Package\Transform\DimCompeticoes"
+          TopLeft="568,409" />
         <NodeLayout
           Size="172,42"
-          Id="Package\Insert_DimCompeticoes\Ordernar País 1"
+          Id="Package\Transform\Ordernar País 1"
           TopLeft="427.5,314.5" />
         <NodeLayout
+          Size="149,42"
+          Id="Package\Transform\Json_Clubes"
+          TopLeft="109,55" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\Transform\REGEX"
+          TopLeft="256.5,248.5" />
+        <NodeLayout
+          Size="224,42"
+          Id="Package\Transform\Converter STR"
+          TopLeft="610,130" />
+        <NodeLayout
           Size="133,42"
-          Id="Package\Insert_DimCompeticoes\Juntar"
+          Id="Package\Transform\Juntar"
           TopLeft="658.5,320.5" />
         <NodeLayout
+          Size="158,42"
+          Id="Package\Transform\Dim_Pais"
+          TopLeft="905,11" />
+        <NodeLayout
+          Size="211,42"
+          Id="Package\Transform\Remover Nomes Repetidos"
+          TopLeft="235,135" />
+        <NodeLayout
           Size="105,42"
-          Id="Package\Insert_DimCompeticoes\Caso"
+          Id="Package\Transform\Caso"
           TopLeft="406,58" />
         <EdgeLayout
-          Id="Package\Insert_DimCompeticoes.Paths[Sort Output2]"
-          TopLeft="992,275">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-267,45.5"
-              Start="0,0"
-              End="-267,38">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,18.75" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,18.75"
-                    Point2="0,22.75"
-                    Point3="-4,22.75" />
-                  <mssgle:LineSegment
-                    End="-263,22.75" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-263,22.75"
-                    Point2="-267,22.75"
-                    Point3="-267,26.75" />
-                  <mssgle:LineSegment
-                    End="-267,38" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Insert_DimCompeticoes.Paths[Sort Output1]"
+          Id="Package\Transform.Paths[Sort Output1]"
           TopLeft="599.5,338.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -2427,7 +2393,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Insert_DimCompeticoes.Paths[Sort Output]"
+          Id="Package\Transform.Paths[Sort Output]"
           TopLeft="341.75,177">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -2449,7 +2415,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Insert_DimCompeticoes.Paths[Saída 0]"
+          Id="Package\Transform.Paths[Saída 0]"
           TopLeft="343,290.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -2483,7 +2449,85 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Insert_DimCompeticoes.Paths[Derived Column Output1]"
+          Id="Package\Transform.Paths[ODBC Source Output1]"
+          TopLeft="985.75,53">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51"
+              Start="0,0"
+              End="0,43.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Transform.Paths[ODBC Source Output]"
+          TopLeft="258,77.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="148,0"
+              Start="0,0"
+              End="140.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="140.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Transform.Paths[Merge Join Output]"
+          TopLeft="725,362.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-72.5,46.5"
+              Start="0,0"
+              End="-72.5,39">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.25"
+                    Point2="0,23.25"
+                    Point3="-4,23.25" />
+                  <mssgle:LineSegment
+                    End="-68.5,23.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-68.5,23.25"
+                    Point2="-72.5,23.25"
+                    Point3="-72.5,27.25" />
+                  <mssgle:LineSegment
+                    End="-72.5,39" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Transform.Paths[Derived Column Output1]"
           TopLeft="989.75,146">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -2505,7 +2549,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Insert_DimCompeticoes.Paths[Derived Column Output]"
+          Id="Package\Transform.Paths[Derived Column Output]"
           TopLeft="610,153.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -2527,7 +2571,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Insert_DimCompeticoes.Paths[Case 1]"
+          Id="Package\Transform.Paths[Case 1]"
           TopLeft="458.5,100">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -2562,88 +2606,32 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="149,42"
-          Id="Package\Insert_DimCompeticoes\Json_Clubes"
-          TopLeft="109,55" />
         <EdgeLayout
-          Id="Package\Insert_DimCompeticoes.Paths[ODBC Source Output]"
-          TopLeft="258,77.5">
+          Id="Package\Transform.Paths[Sort Output2]"
+          TopLeft="992,275">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="148,0"
+              EndConnector="-267,45.5"
               Start="0,0"
-              End="140.5,0">
+              End="-267,38">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="140.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="158,42"
-          Id="Package\Insert_DimCompeticoes\Dim_Pais"
-          TopLeft="905,11" />
-        <EdgeLayout
-          Id="Package\Insert_DimCompeticoes.Paths[ODBC Source Output1]"
-          TopLeft="985.75,53">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,51"
-              Start="0,0"
-              End="0,43.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,43.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="169,42"
-          Id="Package\Insert_DimCompeticoes\ODBC Destination"
-          TopLeft="568,409" />
-        <EdgeLayout
-          Id="Package\Insert_DimCompeticoes.Paths[Merge Join Output]"
-          TopLeft="725,362.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-72.5,46.5"
-              Start="0,0"
-              End="-72.5,39">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,19.25" />
+                    End="0,18.75" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,19.25"
-                    Point2="0,23.25"
-                    Point3="-4,23.25" />
+                    Point1="0,18.75"
+                    Point2="0,22.75"
+                    Point3="-4,22.75" />
                   <mssgle:LineSegment
-                    End="-68.5,23.25" />
+                    End="-263,22.75" />
                   <mssgle:CubicBezierSegment
-                    Point1="-68.5,23.25"
-                    Point2="-72.5,23.25"
-                    Point3="-72.5,27.25" />
+                    Point1="-263,22.75"
+                    Point2="-267,22.75"
+                    Point3="-267,26.75" />
                   <mssgle:LineSegment
-                    End="-72.5,39" />
+                    End="-267,38" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2656,7 +2644,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Insert_DimCompeticoes\Json_Clubes">
+    design-time-name="Package\Transform\Json_Clubes">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2664,7 +2652,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Insert_DimCompeticoes\Dim_Pais">
+    design-time-name="Package\Transform\Dim_Pais">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2672,7 +2660,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Insert_DimCompeticoes\ODBC Destination">
+    design-time-name="Package\Transform\DimCompeticoes">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

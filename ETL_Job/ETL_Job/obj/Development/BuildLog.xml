@@ -2,43 +2,38 @@
 <BuildLog xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ProjectInfo>
     <Name>ETL_Job</Name>
-    <LastWriteTime>2024-10-17T14:30:13.7247873Z</LastWriteTime>
+    <LastWriteTime>2024-10-17T20:09:33.249402Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
   </ProjectInfo>
   <LastBuildInfos>
     <ProjectBuildItemInfo>
       <Name>DimCompeticoes.dtsx</Name>
-      <LastWriteTime>2024-10-17T10:25:20.5921167Z</LastWriteTime>
+      <LastWriteTime>2024-10-17T19:25:55.6043912Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>DimPais.dtsx</Name>
-      <LastWriteTime>2024-10-17T10:19:35.61701Z</LastWriteTime>
+      <LastWriteTime>2024-10-17T19:25:45.0803359Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>GetGames.dtsx</Name>
-      <LastWriteTime>2024-10-17T10:11:38.7329836Z</LastWriteTime>
+      <LastWriteTime>2024-10-17T19:25:29.4087374Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>GetClubs.dtsx</Name>
-      <LastWriteTime>2024-10-17T10:05:41.809013Z</LastWriteTime>
+      <LastWriteTime>2024-10-17T19:25:34.8521195Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>DimJogos.dtsx</Name>
-      <LastWriteTime>2024-10-17T16:04:23.2615828Z</LastWriteTime>
+      <LastWriteTime>2024-10-17T19:24:44.2107426Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>DimClubes.dtsx</Name>
-      <LastWriteTime>2024-10-17T13:05:39.7170084Z</LastWriteTime>
-      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
-    </ProjectBuildItemInfo>
-    <ProjectBuildItemInfo>
-      <Name>Package1.dtsx</Name>
-      <LastWriteTime>2024-10-17T14:30:13.5776676Z</LastWriteTime>
+      <LastWriteTime>2024-10-17T20:09:33.2370617Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>
